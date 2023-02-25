@@ -1,0 +1,93 @@
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Project } from './project';
+import { ProjectService } from '../service/project.service';
+
+@Component({
+  selector: 'app-add-new-modal',
+  templateUrl: './add-new-modal.component.html',
+  styleUrls: ['./add-new-modal.component.css']
+})
+export class AddNewModalComponent implements OnInit {
+
+  newProject: Project = new Project();
+  showReasonField: boolean;
+  loading: boolean = false;
+
+  msgType: string;
+  msg: string;
+  showMsg: boolean = false;
+
+  bond: boolean;
+  installation: boolean;
+  trade: boolean;
+  siteVisit: boolean;
+  otherReason: boolean;
+
+  formData: FormData = new FormData();
+  rejectionFile: File = null;
+
+  @Output() projectAdded: EventEmitter<any> = new EventEmitter<any>();
+
+  constructor(private projectService: ProjectService) { }
+
+  ngOnInit() {
+    this.showReasonField = false;
+  }
+
+  toggleReasonField(){
+    this.showReasonField = !this.showReasonField;
+  }
+
+  setTypeOfBid(bidType: string){
+    this.newProject.bidType = bidType; 
+  }
+
+  handleFileInput(files: FileList){
+    this.rejectionFile = files.item(0);
+  }
+
+  getReasonForNotBidding(): string{
+    let reasons: string = '';
+    reasons += this.bond ? 'bond ' : '';
+    reasons += this.installation ? 'installation ' : '';
+    reasons += this.trade ? 'trade ' : '';
+    reasons += this.siteVisit ? 'Site visit ' : '';
+    reasons += this.showReasonField ?  `${ this.otherReason} ` : '';    
+    return reasons.trim();
+  }
+
+  addNewProject(){
+    this.newProject.reasonNotBidding = this.getReasonForNotBidding();    
+    this.formData = new FormData();    
+    this.loading = true;
+
+    for(let key in this.newProject)
+      this.formData.append(key, this.newProject[key]);
+
+    if(this.rejectionFile)
+      this.formData.append('rejectionFile', this.rejectionFile, this.rejectionFile.name);
+
+    this.projectService.addNewProject(this.formData)
+    .subscribe( (response) => {
+      this.projectAdded.emit(true);
+      this.loading = false;
+      this.notify('success', 'Project Added');
+    }, (error) => {
+      this.loading = false;
+      this.notify('danger', 'Some Error occured');
+      console.error(error);
+    }); 
+
+  }
+
+  notify(type: string, msg: string): void {
+    this.showMsg = true;    
+    this.msg = msg;
+    this.msgType = type;
+    setTimeout(() => {
+      this.showMsg = false;
+    }, 2000);
+  }
+
+}
+

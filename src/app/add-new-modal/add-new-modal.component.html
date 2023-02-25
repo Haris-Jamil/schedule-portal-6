@@ -1,0 +1,151 @@
+<div class="modal fade" id="addNewModal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h4 class="modal-title">Add New Project</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      
+      <div class="modal-body">
+        <form>
+
+          <label><b>Submit by:</b></label>
+          <div class="form-inline form-row" >
+            <input type="number" [(ngModel)]="newProject.submitByDay" name="submitByDay" class="form-control form-control-sm form-input" placeholder="date" >
+            <input type="number" [(ngModel)]="newProject.submitByMonth" name="submitByMonth" class="form-control form-control-sm form-input" placeholder="month" >
+            <input type="number" [(ngModel)]="newProject.submitByYear" name="submitByYear" class="form-control form-control-sm form-input" placeholder="year" >
+          </div>
+
+          <div class="form-inline form-row" >
+            <select [(ngModel)]="newProject.submitByHour" name="submitByHour" class="form-control form-control-sm form-input-sm" >
+              <option *ngFor="let n of [1,2,3,4,5,6,7,8,9,10,11,12]" value="{{n}}" >{{n}}</option>
+            </select>           
+
+            <select [(ngModel)]="newProject.submitByMin" name="submitByMin" class="form-control form-control-sm form-input-sm">
+              <option value='00' >00</option>
+              <option value='15'>15</option>
+              <option value='30'>30</option>
+              <option value='45'>45</option>
+            </select>
+
+            <select [(ngModel)]="newProject.submitByMeridiem" name="submitByMeridiem" class="form-control form-control-sm form-input-sm">
+              <option value='AM'>AM</option>
+              <option value='PM'>PM</option>             
+            </select>
+
+            <select [(ngModel)]="newProject.submitByTimeZone" name="submitByTimeZone" class="form-control form-control-sm form-input">
+              <option value='PST'>Pacific</option>
+              <option value='MST'>Mountain</option>             
+              <option value='CST'>Central</option>             
+              <option value='EST'>Eastern</option>
+              <option value='Local'>Local</option>
+            </select>
+          </div>
+          <br>
+
+          <label><b>Folder Assigned Date:</b></label>
+          <div class="form-inline form-row" >
+            <input [(ngModel)]="newProject.FolderAssignDay" name="FolderAssignDay" type="number" class="form-control form-control-sm form-input" placeholder="date" >
+            <input [(ngModel)]="newProject.FolderAssignMonth" name="FolderAssignMonth" type="number" class="form-control form-control-sm form-input" placeholder="month" >
+            <input [(ngModel)]="newProject.FolderAssignYear" name="FolderAssignYear" type="number" class="form-control form-control-sm form-input" placeholder="year" >
+          </div>
+          <br>
+
+          <div class="form-inline form-row">
+              <input [(ngModel)]="newProject.title" name="title" type="text" class="form-control form-control-sm form-input-lg" placeholder="title" >
+          </div>
+
+          <div class="form-inline form-row">
+              <input [(ngModel)]="newProject.state" name="state" type="text" class="form-control form-control-sm form-input-lg" placeholder="state" >
+          </div>
+
+          <div class="form-inline form-row">
+              <input [(ngModel)]="newProject.code" name="code" type="text" class="form-control form-control-sm form-input-lg" placeholder="code" >
+          </div>
+          <br>
+
+          <label><b>Type of bid:</b></label>
+          <div class="form-inline form-row" >
+            <div class="form-check-inline">
+              <label class="form-check-label">
+                <input (click)="setTypeOfBid('sealed')" type="radio" class="form-check-input" name="optradio">Sealed
+              </label>
+            </div>
+            <div class="form-check-inline">
+              <label class="form-check-label">
+                <input (click)="setTypeOfBid('online')"  type="radio" class="form-check-input" name="optradio">Online
+              </label>
+            </div>
+            <div class="form-check-inline disabled">
+              <label class="form-check-label">
+                <input (click)="setTypeOfBid('email')"  type="radio" class="form-check-input" name="optradio">Email
+              </label>
+            </div>
+            <div class="form-check-inline">
+                <label class="form-check-label">
+                  <input (click)="setTypeOfBid('fax')"  type="radio" class="form-check-input" name="optradio">Fax
+                </label>
+              </div>
+              <div class="form-check-inline disabled">
+                <label class="form-check-label">
+                  <input (click)="setTypeOfBid('NES & SEPTA')"  type="radio" class="form-check-input" name="optradio">NES & SEPTA
+                </label>
+              </div>
+          </div>
+          <br>
+
+          <label><b>Reasons for not bidding:</b></label>
+          <div class="form-inline form-row" >
+            <div class="form-check-inline">
+              <label class="form-check-label">
+                <input [(ngModel)]="bond" name="bond" type="checkbox" class="form-check-input" value="">Bond
+              </label>
+            </div>
+            <div class="form-check-inline">
+              <label class="form-check-label">
+                <input [(ngModel)]="installation" name="installation" type="checkbox" class="form-check-input" value="">Installation
+              </label>
+            </div>
+            <div class="form-check-inline">
+              <label class="form-check-label">
+                <input [(ngModel)]="trade" name="trade" type="checkbox" class="form-check-input" value="">Trade
+              </label>
+            </div>
+            <div class="form-check-inline">
+              <label class="form-check-label">
+                <input [(ngModel)]="siteVisit" name="siteVisit" type="checkbox" class="form-check-input" value="">Site Visit
+              </label>
+            </div>
+            <div class="form-check-inline">
+              <label class="form-check-label">
+                <input type="checkbox" (click)="toggleReasonField()" class="form-check-input" value="">Other
+              </label>
+            </div>
+          </div>
+          <br>  
+          
+          <div *ngIf="showReasonField"  >
+            <div class="form-inline form-row">
+              <input [(ngModel)]="otherReason" name="otherReason" type="text" class="form-control form-control-sm form-input-lg" placeholder="Reason" >
+            </div>
+            <br>
+          </div>
+          
+          <label><b>Rejection File:</b></label>
+          <input type="file" (change)="handleFileInput($event.target.files)" class="form-control-file border form-input-lg">
+
+        </form>
+
+      </div>
+
+      <div class="modal-footer">
+        <button *ngIf='showMsg' disabled type="button" class="btn btn-sm btn-{{msgType}}" >{{msg}}</button>
+        <button type="button" (click)="addNewProject()" class="btn btn-success" >
+          <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Add Project
+        </button>
+      </div>
+      
+    </div>
+  </div>
+</div>

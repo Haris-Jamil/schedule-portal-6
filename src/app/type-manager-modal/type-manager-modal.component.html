@@ -1,0 +1,39 @@
+<div class="modal fade" id="typeManagerModal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h4 class="modal-title">Manage Types</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      
+      <div class="modal-body">
+
+        <div class="form-inline" style="margin-bottom:10px" >
+          <input [(ngModel)]="newType" type="text" class="form-control form-control-sm" />
+          <button class="btn btn-primary btn-sm margin-left" (click)="addType()" >Add New Type</button>
+        </div>
+        
+
+        <table class="table table-bordered table-hover" >
+          <tr class="table-primary">
+            <th>#</th>
+            <th>Title</th>
+            <th class="align-center" >Actions</th>
+          </tr>
+
+          <tr *ngFor="let type of allTypes; let i = index" >
+            <td>{{ i+1 }}</td>
+            <td>{{ type.title }}</td>            
+            <td class="align-center" >              
+              <span title="Delete" class='fa fa-trash fa-lg' (click)="deleteType(type.id)" ></span>
+            </td>
+          </tr>
+
+        </table>
+
+      </div>
+
+    </div>
+  </div>
+</div>

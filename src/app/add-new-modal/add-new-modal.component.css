@@ -1,0 +1,22 @@
+#addNewModal{
+    color:#3d3d3d;
+}
+
+.form-input{
+    margin-right:5px;
+    width: 100px;
+}
+
+.form-input-sm{
+    margin-right:5px;
+    width: 80px;
+}
+
+.form-input-lg{
+    margin-right:5px;
+    width: 205px;
+}
+
+.form-row{
+    margin-bottom: 5px;
+}

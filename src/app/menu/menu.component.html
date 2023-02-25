@@ -1,0 +1,102 @@
+<div class="menu-container-innner" >
+
+  <div class="row">
+    
+    <div class='col-md-8' >
+
+      <div class='form-inline'>
+
+          <input type='number' [(ngModel)]='month' class='form-control menu-input' placeholder="Month" min='1' max='12' />
+          <input type='number' [(ngModel)]='date' class='form-control menu-input' placeholder="Date" min='1' max='31' />
+          <input type='number' [(ngModel)]='year' class='form-control menu-input' placeholder="Year" min='2017' />
+
+          <ng-container *ngIf="!rejectionMode" >
+            <button (click)="fetchDataByDay(0)" class='btn btn-primary menu-btn'>Today</button>
+            <button (click)="fetchDataByDay(1)" class='btn btn-primary menu-btn'>Tomorrow</button>
+            <button (click)="fetchDataByDay(2)" class='btn btn-primary menu-btn'>Tomorrow + 1</button>
+            <button (click)="fetchDataByDay(3)" class='btn btn-primary menu-btn'>Tomorrow + 2</button>
+            <button (click)="fetchDataByDay()" class='btn btn-primary menu-btn'>Next >></button>
+          </ng-container>
+
+          <ng-container *ngIf="rejectionMode">            
+            <button (click)="fetchRejectionByDay()" class='btn btn-primary menu-btn'>&lt;&lt;  Previous</button>
+            <button (click)="fetchRejectionByDay(0)" class='btn btn-primary menu-btn'>Today</button>
+          </ng-container>
+          
+
+      </div>
+
+    </div>
+
+    <div class='col-md-4' >
+
+      <div class='form-inline pull-right' >
+
+          <ng-container *ngIf="!rejectionMode" >
+            <button class='btn btn-success menu-btn' data-toggle="modal" data-target="#addNewModal" >Add New <span class='fa fa-plus-circle' ></span></button>
+          </ng-container>          
+          
+          <ng-container *ngIf="rejectionMode" >
+            <button class='btn btn-success menu-btn' data-toggle="modal" data-target="#addNewRejectionModal" >Add Rejection <span class='fa fa-plus-circle' ></span></button>
+          </ng-container>          
+
+
+          <div class="dropdown"  *ngIf='show'>
+            <button class="btn btn-primary dropdown-toggle menu-btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Utilities
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <!-- <a class="dropdown-item" target="_blank" href="http://tii-usa.com/bidscheduler/quoteFreq4.php">Quote Frequency</a>
+              <a class="dropdown-item" target="_blank" href="http://tii-usa.com/bidscheduler/showtally4.php">Total Tally</a>          
+              <a class="dropdown-item" target="_blank" href="http://tii-usa.com/bidscheduler/report.php?type=4">Interactive Report</a>  -->
+              <a class="dropdown-item" data-toggle="modal" data-target="#userManagerModal"  href="javascript:void(0)">Manage Users</a>
+              <a class="dropdown-item" data-toggle="modal" data-target="#typeManagerModal"  href="javascript:void(0)">Manage Types</a>          
+            </div>
+          </div>
+          <button class='btn btn-danger menu-btn' (click)="logout()" >Logout</button>
+      </div>
+    </div>    
+  </div>
+  
+  <br>
+  <div class="row" >
+    <div class="col-md-9" >
+      <div class='form-inline'>
+
+        <button class="btn btn-primary menu-btn btn-sm" (click)="toggleFilter()" >Filter <i class="fa fa-angle-{{buttonState}}"></i></button>                  
+
+        <ng-container *ngIf="!rejectionMode" >
+          <button (click)='fetchProjects()' class="btn btn-success menu-btn btn-sm" >Search <i class="fa fa-search-plus"></i></button>          
+          <!-- <button class='btn btn-primary menu-btn btn-sm' data-toggle="modal" data-target="#projectDifferenceModal" >Project difference</button> -->
+          <button class='btn btn-success menu-btn btn-sm' click="javascript:void(0)" ><strong>{{filteredData.length}} projects found </strong> </button>        
+          <a *ngIf='show' class='btn btn-success menu-btn btn-sm' href="https://www.tii-usa.com/portals/schedule-portal-4/?rejection=true" target="_blank" >Rejected Projects</a>
+        </ng-container>
+        
+        <ng-container *ngIf="rejectionMode" >
+          <button (click)='fetchRejections()' class="btn btn-success menu-btn btn-sm" >Search <i class="fa fa-search-plus"></i></button>          
+          <button class='btn btn-success menu-btn btn-sm' click="javascript:void(0)" ><strong>{{filteredData.length}} rejections found </strong> </button>        
+        </ng-container>     
+
+        <ng-container *ngIf="rejectionMode" >
+          <button type="button" class="btn btn-sm btn-primary">
+            Error <span class="badge badge-err">{{errorCount}}</span>
+            Done <span class="badge badge-done">{{doneCount}}</span>
+            Still Issue <span class="badge badge-issue">{{issueCount}}</span>
+          </button>
+        </ng-container>
+
+      </div>
+    </div>
+  </div>
+  <br>
+
+  <app-filter [ngStyle]="{'display': showFilter ? 'block' : 'none' }" [dataToFilter]="originalData" (dataFiltered)="loadFilteredData($event)" ></app-filter>  
+</div>
+<div *ngIf="isDataLoading" class="progress-bar bg-success progress-bar-striped progress-bar-animated"></div>
+<app-add-new-modal (projectAdded)="fetchProjects()" ></app-add-new-modal>
+<app-add-rejection-modal (rejectionAdded)="fetchRejections()" ></app-add-rejection-modal>
+<!-- <ng-container *ngIf="!rejectionMode" >
+  <app-project-count-modal [data]="projectCount" ></app-project-count-modal>
+</ng-container> -->
+<app-user-manager-modal></app-user-manager-modal>
+<app-type-manager-modal></app-type-manager-modal>

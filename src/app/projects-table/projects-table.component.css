@@ -1,0 +1,115 @@
+table{
+    font-size: 11px;
+}
+.table-header{
+    background-color: #007bff;
+    color:#fff;
+    border-top:none;
+}
+.table-header th{
+    border-top: none;
+}
+.status-div{
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+}
+.fill-status{
+    background-color:#feca57;
+    border:2px solid #ff9f43;    
+}
+.empty-status{
+    background-color:transparent;
+    border:2px solid #ff9f43;      
+}
+
+
+.verf-btn{
+    color:#636e72;
+    display: inline;
+    margin-right: 5px;
+}
+.verf-btn:hover{
+    color:#e67e22;
+}
+
+.done-btn{
+    color:#636e72;
+    display: inline;
+    margin-right: 5px;
+}
+.done-btn:hover{
+    color:#27ae60;
+}
+
+
+.exclaim-btn{
+    color:#636e72;
+    display: inline;
+    margin-right: 5px;
+}
+.exclaim-btn:hover{
+    color:#d63031;
+}
+
+
+.delete-btn{
+    color:#636e72;
+    display: inline;
+    margin-right: 5px;
+}
+.delete-btn:hover{
+    color:#d63031;
+}
+
+
+.edit-btn{
+    margin-top: 2px;
+    color:#636e72;
+    display: inline;
+}
+.edit-btn:hover{
+    color:#00b894;
+}
+
+
+
+.menu-column{
+    width: 80px;
+}
+.blue-row{
+    background-color: #0abde3;
+}
+th{
+  position: sticky;  
+  top: 0px;  
+  background-color: #007bff;
+  z-index: 999;
+}
+.choose_file {
+    position: relative;
+    display: block;   
+    font: normal 14px Myriad Pro, Verdana, Geneva, sans-serif;
+    color: #7f7f7f;
+    margin-top: 2px;
+    background-color: white;
+    transition: background-color ease-in 0.2s;
+} 
+.choose_file:hover {
+    background-color: #bdc3c7;
+}
+.choose_file input[type="file"]{
+    -webkit-appearance:none; 
+    position:absolute;
+    top:0;
+    left:0;
+    opacity:0;
+    width: 100%;
+    height: 100%;
+}
+.dropdown-menu{
+    padding: 0px;
+}
+.file-btn{
+    font-size: 10px;
+}

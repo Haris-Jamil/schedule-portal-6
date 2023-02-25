@@ -1,0 +1,17 @@
+.modal-body{
+    color:black;
+}
+.modal-title{
+    color:#2c3e50;
+}
+.align-center{
+    text-align: center;
+}
+
+.align-center span{
+    margin-left: 5px;    
+}
+
+.margin-left {
+    margin-left: 10px;
+}

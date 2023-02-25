@@ -1,0 +1,255 @@
+<div class="modal fade" id="editModal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h4 class="modal-title">Edit Project</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      
+      <div class="modal-body">
+        <form>
+
+          <label><b>Submit by:</b></label>
+          <div class="form-inline form-row" >
+            <input type="number" [(ngModel)]="updateData.submit_by_day" name="submitByDay" class="form-control form-control-sm form-input" placeholder="date" >
+            <input type="number" [(ngModel)]="updateData.submit_by_month" name="submitByMonth" class="form-control form-control-sm form-input" placeholder="month" >
+            <input type="number" [(ngModel)]="updateData.submit_by_year" name="submitByYear" class="form-control form-control-sm form-input" placeholder="year" >
+          </div>
+         
+          <label><b>Folder Assigned Date:</b></label>
+          <div class="form-inline form-row" >
+            <input [(ngModel)]="updateData.folder_assigned_day" name="FolderAssignDay" type="number" class="form-control form-control-sm form-input" placeholder="date" >
+            <input [(ngModel)]="updateData.folder_assigned_month" name="FolderAssignMonth" type="number" class="form-control form-control-sm form-input" placeholder="month" >
+            <input [(ngModel)]="updateData.folder_assigned_year" name="FolderAssignYear" type="number" class="form-control form-control-sm form-input" placeholder="year" >
+          </div>
+          <br>
+
+          <div class="form-inline form-row">
+              <input [(ngModel)]="updateData.title" name="title" type="text" class="form-control form-control-sm form-input-lg" placeholder="title" >
+          </div>
+
+          <div class="form-inline form-row">
+              <input [(ngModel)]="updateData.state" name="state" type="text" class="form-control form-control-sm form-input-lg" placeholder="state" >
+          </div>
+
+          <div class="form-inline form-row">
+              <input [(ngModel)]="updateData.code" disabled name="code" type="text" class="form-control form-control-sm form-input-lg" placeholder="code" >
+          </div>
+
+          <div class="form-inline form-row">
+            <input name="quoteRec" [(ngModel)]="quoteRec" type="number" class="form-control form-control-sm form-input-lg" placeholder="Quote Recieved" >
+          </div>
+          <br>
+
+          <label><b>Type of bid:</b></label>
+          <div class="form-inline form-row" >
+            <div class="form-check-inline">
+              <label class="form-check-label">
+                <input [(ngModel)]="typeOfBid" value="sealed" type="radio" class="form-check-input" name="optradio">Sealed
+              </label>
+            </div>
+            <div class="form-check-inline">
+              <label class="form-check-label">
+                <input [(ngModel)]="typeOfBid" value="online"  type="radio" class="form-check-input" name="optradio">Online
+              </label>
+            </div>
+            <div class="form-check-inline disabled">
+              <label class="form-check-label">
+                <input [(ngModel)]="typeOfBid" value="email"  type="radio" class="form-check-input" name="optradio">Email
+              </label>
+            </div>
+            <div class="form-check-inline">
+                <label class="form-check-label">
+                  <input [(ngModel)]="typeOfBid" value="fax" type="radio" class="form-check-input" name="optradio">Fax
+                </label>
+              </div>
+              <div class="form-check-inline disabled">
+                <label class="form-check-label">
+                  <input [(ngModel)]="typeOfBid" value="NES&SEPTA"  type="radio" class="form-check-input" name="optradio">NES & SEPTA
+                </label>
+              </div>
+          </div>
+          <br>
+
+          <!-- <label><b>Wajahat Remarks:</b></label>
+          <div class="form-inline form-row" >
+            <div class="form-check-inline">
+              <label class="form-check-label">
+                <input type="radio" [(ngModel)]="wRemarks" value="YES" class="form-check-input" name="wRadio">Valid
+              </label>
+            </div>
+            <div class="form-check-inline">
+              <label class="form-check-label">
+                <input type="radio" [(ngModel)]="wRemarks" value="NO" class="form-check-input" name="wRadio">Invalid
+              </label>
+            </div>            
+          </div>
+          <br>
+
+          <label><b>Zohaib Remarks:</b></label>
+          <div class="form-inline form-row" >
+            <div class="form-check-inline">
+              <label class="form-check-label">
+                <input type="radio" [(ngModel)]="zRemarks" value="YES" class="form-check-input" name="zRadio">Valid
+              </label>
+            </div>
+            <div class="form-check-inline">
+              <label class="form-check-label">
+                <input  type="radio" [(ngModel)]="zRemarks" value="NO" class="form-check-input" name="zRadio">Invalid
+              </label>
+            </div>            
+          </div>
+          <br> -->
+
+          <label><b>To:</b></label>
+          <div class="form-inline form-row" >
+            <div class="form-check-inline">
+              <label class="form-check-label">
+                <input type="radio" [(ngModel)]="to" value="BD" class="form-check-input" name="toRadio">BD
+              </label>
+            </div>
+            <div class="form-check-inline">
+              <label class="form-check-label">
+                <input  type="radio" [(ngModel)]="to" value="SH" class="form-check-input" name="toRadio">SH
+              </label>
+            </div>            
+            <div class="form-check-inline">
+              <label class="form-check-label">
+                <input type="radio" [(ngModel)]="to" value="RF" class="form-check-input" name="toRadio">RF
+              </label>
+            </div>
+            <div class="form-check-inline">
+              <label class="form-check-label">
+                <input  type="radio" [(ngModel)]="to" value="SD" class="form-check-input" name="toRadio">SD
+              </label>
+            </div>
+            <div class="form-check-inline">
+              <label class="form-check-label">
+                <input type="radio" [(ngModel)]="to" value="SF" class="form-check-input" name="toRadio">SF
+              </label>
+            </div>
+            <div class="form-check-inline">
+              <label class="form-check-label">
+                <input  type="radio" [(ngModel)]="to" value="NV" class="form-check-input" name="toRadio">NV
+              </label>
+            </div>
+            <div class="form-check-inline">
+                <label class="form-check-label">
+                  <input  type="radio" [(ngModel)]="to" value="BR" class="form-check-input" name="toRadio">BR
+                </label>
+            </div>
+            <div class="form-check-inline">
+              <label class="form-check-label">
+                <input  type="radio" [(ngModel)]="to" value="SR" class="form-check-input" name="toRadio">SR
+              </label>
+            </div>
+            <div class="form-check-inline">
+              <label class="form-check-label">
+                <input  type="radio" [(ngModel)]="to" value="AR" class="form-check-input" name="toRadio">AR
+              </label>
+            </div>
+            <div class="form-check-inline">
+              <label class="form-check-label">
+                <input  type="radio" [(ngModel)]="to" value="AT" class="form-check-input" name="toRadio">AT
+              </label>
+            </div>
+          </div>
+          <br>
+
+          <label><b>CC:</b></label>
+          <div class="form-inline form-row" >
+            <div class="form-check-inline">
+              <label class="form-check-label">
+                <input [(ngModel)]="cc.BD" name="BD" type="checkbox" class="form-check-input" value="">BD
+              </label>
+            </div>
+            <div class="form-check-inline">
+              <label class="form-check-label">
+                <input [(ngModel)]="cc.SH" name="SH" type="checkbox" class="form-check-input" value="">SH
+              </label>
+            </div>
+            <div class="form-check-inline">
+              <label class="form-check-label">
+                <input [(ngModel)]="cc.RF" name="RF" type="checkbox" class="form-check-input" value="">RF
+              </label>
+            </div>
+            <div class="form-check-inline">
+              <label class="form-check-label">
+                <input [(ngModel)]="cc.SD" name="SD" type="checkbox" class="form-check-input" value="">SD
+              </label>
+            </div>
+            <div class="form-check-inline">
+              <label class="form-check-label">
+                <input [(ngModel)]="cc.SF" name="SF" type="checkbox" class="form-check-input" value="">SF
+              </label>
+            </div>
+            <div class="form-check-inline">
+              <label class="form-check-label">
+                <input [(ngModel)]="cc.NV" name="NV" type="checkbox" class="form-check-input" value="">NV
+              </label>
+            </div>
+            <div class="form-check-inline">
+                <label class="form-check-label">
+                  <input [(ngModel)]="cc.BR" name="BR" type="checkbox" class="form-check-input" value="">BR
+                </label>
+            </div>
+            <div class="form-check-inline">
+              <label class="form-check-label">
+                <input [(ngModel)]="cc.SR" name="SR" type="checkbox" class="form-check-input" value="">SR
+              </label>
+          </div>          
+          </div>
+          <br>
+
+          <div class="form-inline form-row" >
+            <div class="form-check-inline">
+              <label class="form-check-label">
+                <input type="radio" class="form-check-input" value="yes" name="subRadio">Submitted
+              </label>
+            </div>
+            <div class="form-check-inline">
+              <label class="form-check-label">
+                <input  type="radio" class="form-check-input" value="no" name="subRadio">Not Submitted
+              </label>
+            </div>    
+            <div class="form-check-inline">
+              <label class="form-check-label">
+                <input  type="radio" class="form-check-input" value="HO" name="subRadio">Forward to HO 
+              </label>
+            </div>
+            <div class="form-check-inline">
+              <label class="form-check-label">
+                <input  type="radio" class="form-check-input" value="" name="subRadio">No Result
+              </label>
+            </div>    
+          </div>
+          <br>
+                             
+          <div class="form-inline form-row">
+            <input [(ngModel)]="otherReason" name="otherReason" type="text" class="form-control form-control-sm form-input-lg" placeholder="Reason (if not submitted) " >
+          </div>
+          <br>       
+          
+          <div class="form-inline form-row">
+            <input [(ngModel)]="updateData.epnum" name="epnum" type="text" class="form-control form-control-sm form-input-lg" placeholder="EP #" >
+          </div>
+          <br>      
+          
+        </form>
+
+      </div>
+
+      <div class="modal-footer">
+        <button *ngIf='showMsg' disabled type="button" class="btn btn-sm btn-{{msgType}}" >{{msg}}</button>
+        <button type="button" (click)="editProject()" class="btn btn-success" >
+          <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Edit Project
+        </button>
+        <button type="button" (click)="copyProject()" class="btn btn-success" >
+          <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Copy Project
+        </button>
+      </div>
+      
+    </div>
+  </div>
+</div>

@@ -1,0 +1,133 @@
+<div class="row" >
+
+  <div class="col-md-12" >
+
+    <div class="form-inline" >
+
+      <input type='text' (keyup)="applyFilter(dataToFilter)" [(ngModel)]="operator" placeholder="Operator" class="form-control form-control-sm menu-input" />
+      <input type='text' (keyup)="applyFilter(dataToFilter)" [(ngModel)]="title" placeholder="Title" class="form-control form-control-sm menu-input" />
+      <input type='text' (keyup)="applyFilter(dataToFilter)" [(ngModel)]="state" placeholder="State" class="form-control form-control-sm menu-input" />                             
+
+    </div>    
+  
+  </div>
+
+</div>
+<br>
+
+<ng-container *ngIf="rejectionMode">
+  <div class="row filter-lower-section"  >
+    <div class="col-md-12" >
+      <div>
+        <div class="form-check-inline">
+          <label class="form-check-label menu-label">Status:</label>
+        </div>
+  
+        <div class="form-check-inline">
+          <label class="form-check-label">
+            <input (change)="applyFilter(dataToFilter)" [(ngModel)]="error" type="checkbox" class="form-check-input" value="">error
+          </label>
+        </div>
+        <div class="form-check-inline">
+          <label class="form-check-label">
+            <input (change)="applyFilter(dataToFilter)" [(ngModel)]="done" type="checkbox" class="form-check-input" value="">done
+          </label>
+        </div>
+        <div class="form-check-inline disabled">
+          <label class="form-check-label">
+            <input (change)="applyFilter(dataToFilter)" [(ngModel)]="verified" type="checkbox" class="form-check-input" value="" >Still Issue
+          </label>
+        </div>           
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="!rejectionMode" >
+  <div class="row filter-lower-section"  >
+
+    <div class="col-md-12" >
+
+      <div>
+        <div class="form-check-inline">
+          <label class="form-check-label menu-label">Type:</label>
+        </div>
+  
+        <div class="form-check-inline">
+          <label class="form-check-label">
+            <input (change)="applyFilter(dataToFilter)" [(ngModel)]="sealed" type="checkbox" class="form-check-input" value="">Sealed
+          </label>
+        </div>
+        <div class="form-check-inline">
+          <label class="form-check-label">
+            <input (change)="applyFilter(dataToFilter)" [(ngModel)]="online" type="checkbox" class="form-check-input" value="">Online
+          </label>
+        </div>
+        <div class="form-check-inline disabled">
+          <label class="form-check-label">
+            <input (change)="applyFilter(dataToFilter)" [(ngModel)]="email" type="checkbox" class="form-check-input" value="" >Email
+          </label>
+        </div>
+        <div class="form-check-inline">
+          <label class="form-check-label">
+            <input (change)="applyFilter(dataToFilter)" [(ngModel)]="fax" type="checkbox" class="form-check-input" value="">Fax  
+          </label>
+        </div>
+        <div class="form-check-inline disabled">
+          <label class="form-check-label">
+            <input (change)="applyFilter(dataToFilter)" [(ngModel)]="nes" type="checkbox" class="form-check-input" value="" >NES/SEPTA
+          </label>
+        </div>    
+      </div>
+  
+      <div>              
+        <div class="form-check-inline">
+          <label class="form-check-label menu-label">Submitted:</label>
+        </div>
+  
+        <div class="form-check-inline">
+          <label class="form-check-label">
+            <input (change)="applyFilter(dataToFilter)" [(ngModel)]="submittedYes" type="checkbox" class="form-check-input" value="">Yes
+          </label>
+        </div>
+        <div class="form-check-inline">
+          <label class="form-check-label">
+            <input (change)="applyFilter(dataToFilter)" [(ngModel)]="submittedNo" type="checkbox" class="form-check-input" value="">No
+          </label>
+        </div>      
+      </div>    
+
+      <div *ngIf='show'>              
+        <div class="form-check-inline">
+          <label class="form-check-label menu-label">Files:</label>
+        </div>
+  
+        <div class="form-check-inline">
+          <label class="form-check-label">
+            <input (change)="applyFilter(dataToFilter)" [(ngModel)]="rejectionFile" type="checkbox" class="form-check-input" value="">Rejection
+          </label>
+        </div>
+        <div class="form-check-inline">
+          <label class="form-check-label">
+            <input (change)="applyFilter(dataToFilter)" [(ngModel)]="noQuoteFile" type="checkbox" class="form-check-input" value="">No Quote
+          </label>
+        </div>      
+        <div class="form-check-inline">
+          <label class="form-check-label">
+            <input (change)="applyFilter(dataToFilter)" [(ngModel)]="bidResultFile" type="checkbox" class="form-check-input" value="">Bid Result
+          </label>
+        </div>   
+        <div class="form-check-inline">
+          <label class="form-check-label">
+            <input (change)="applyFilter(dataToFilter)" [(ngModel)]="rfiFile" type="checkbox" class="form-check-input" value="">RFI
+          </label>
+        </div>  
+      </div>
+      
+    
+    </div>
+  
+  </div>
+</ng-container>
+
+

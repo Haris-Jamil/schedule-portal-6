@@ -1,0 +1,23 @@
+
+<div class="col-md-4 m-auto login-box" >
+
+  <h2 class="text-center title" >Project Scheduler 6</h2>
+  <br>
+
+  <input type="text" [(ngModel)]="username" (keyup.enter)="login()"  class="form-control form-control-sm" placeholder="username" />
+  <br>
+  <input type="password" [(ngModel)]="password" (keyup.enter)="login()" class="form-control form-control-sm" placeholder="password" />
+  <br>
+
+  <div *ngIf="loginError" >
+      <div class='error-box text-center'>
+        {{errorMsg}}
+      </div>
+      <br>
+  </div>
+  
+
+  <button type="button" class="btn btn-success pull-right" (click)="login()" >Login</button>
+
+</div>  
+
