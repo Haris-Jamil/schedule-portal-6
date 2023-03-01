@@ -14,7 +14,7 @@ export class LoginService {
   constructor(private http: HttpClient) { }  
 
   isLogin(){
-    if(localStorage.getItem('token'))
+    if(localStorage.getItem('token-p6'))
       return true;
     return false;
   }
@@ -36,8 +36,8 @@ export class LoginService {
   }
 
   logout(){
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
+    localStorage.removeItem('token-p6');
+    localStorage.removeItem('user-p6');
     this.loginChange.next();
   }
 
@@ -47,7 +47,7 @@ export class LoginService {
   }
 
   getLoggedInUser() {
-    return localStorage.getItem('user');
+    return localStorage.getItem('user-p6');
   }
 
   getUsers() {

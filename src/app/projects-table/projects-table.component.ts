@@ -38,8 +38,8 @@ export class ProjectsTableComponent implements OnInit, OnChanges {
       this.updateData = new Project();
     }
     this.show = !this.loginService.isVisitor();
-    const userId = localStorage.getItem('userId');
-    this.currentUser = localStorage.getItem('user');
+    const userId = localStorage.getItem('userId-p6');
+    this.currentUser = localStorage.getItem('user-p6');
     this.typeService.getUserTypes(userId).subscribe( (resp: any[]) => {
       this.userTypes = resp.map( ut => ut.title );
     });
