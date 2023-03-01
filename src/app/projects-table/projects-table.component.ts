@@ -4,6 +4,7 @@ import { Project } from '../add-new-modal/project';
 import { LoginService } from '../service/login.service';
 import { Rejection } from '../add-rejection-modal/rejection';
 import { RejectionService } from '../service/rejection.service';
+import { TypeService } from '../service/type.service';
 
 @Component({
   selector: 'app-projects-table',
@@ -21,8 +22,13 @@ export class ProjectsTableComponent implements OnInit, OnChanges {
   dateSort = 'asc';
   rejectionMode: boolean = false;
   refreshSignal: number;
+  userTypes: any[] = [];
+  currentUser: string;
 
-  constructor(private projectService: ProjectService, private loginService: LoginService, private rejectionService: RejectionService) {}
+  constructor(private projectService: ProjectService, 
+              private loginService: LoginService,
+              private rejectionService: RejectionService,
+              private typeService: TypeService ) {}
 
   ngOnInit() {
     if (window['rejectionMode']) {
@@ -32,10 +38,18 @@ export class ProjectsTableComponent implements OnInit, OnChanges {
       this.updateData = new Project();
     }
     this.show = !this.loginService.isVisitor();
+    const userId = localStorage.getItem('userId');
+    this.currentUser = localStorage.getItem('user');
+    this.typeService.getUserTypes(userId).subscribe( (resp: any[]) => {
+      this.userTypes = resp.map( ut => ut.title );
+    });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.projectsData = changes.projectsData.currentValue;    
+    this.projectsData = changes.projectsData.currentValue;
+    this.projectsData = this.projectsData.filter( (data) => {
+      return (this.userTypes.includes(data.ptype) || this.currentUser === 'admin');
+    });
   }
 
   toggleStatus(id: number, status: string, index: number): void {        

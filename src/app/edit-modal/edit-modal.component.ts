@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { ProjectService } from '../service/project.service';
+import { TypeService } from '../service/type.service';
 declare var $;
 
 @Component({
@@ -23,6 +24,8 @@ export class EditModalComponent implements OnInit, OnChanges {
   msg: string;
   showMsg: boolean = false;
 
+  types: any[] = [];
+
   cc: any = { 
     'BD': false,
     'SH': false,
@@ -34,7 +37,7 @@ export class EditModalComponent implements OnInit, OnChanges {
     'SR': false
   };
   
-  constructor(private projectService: ProjectService) { }
+  constructor(private projectService: ProjectService, private typeService: TypeService) { }
 
   
   reInitForm(){
@@ -60,6 +63,12 @@ export class EditModalComponent implements OnInit, OnChanges {
       'BR': false,
       'SR': false
     };
+  }
+
+  ngOnInit() {
+    this.typeService.getAllTypes().subscribe( (resp: any) => {
+      this.types = resp;
+    })
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -135,7 +144,8 @@ export class EditModalComponent implements OnInit, OnChanges {
       'state': this.updateData.state,
       'qr': this.quoteRec,     
       'cc': this.getSelectCC(),
-      'epnum': this.updateData.epnum
+      'epnum': this.updateData.epnum,
+      'type': this.updateData.ptype
     }
 
     for(let key in editObj)
@@ -181,9 +191,6 @@ export class EditModalComponent implements OnInit, OnChanges {
     setTimeout(() => {
       this.showMsg = false;
     }, 2000);
-  }
-
-  ngOnInit() {
   }
 
 }

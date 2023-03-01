@@ -6,6 +6,7 @@
           <th>Title</th>
           <th>State</th>
           <th>Type</th>
+          <th>Project Type</th>
           <th>Code</th>
           <th>Reason</th>
           <ng-container *ngIf='show'>
@@ -21,6 +22,7 @@
           <td>{{data.title}}</td>
           <td>{{data.state}}</td>
           <td>{{data.type}}</td>
+          <td>{{data.ptype}}</td>
           <td>{{data.code}}</td>
           <td>{{data.reason}}</td>
           <ng-container *ngIf='show'>
@@ -47,6 +49,7 @@
           <th>Title</th>
           <th>State</th>
           <th>Type</th>
+          <th>Project Type</th>
           <th>Code</th>
           <ng-container *ngIf='show' >
               <th>QR</th>
@@ -78,6 +81,7 @@
           <td >{{data.title}}</td>
           <td>{{data.state}}</td>
           <td>{{data.type}}</td>
+          <td>{{data.ptype}}</td>
           <td>{{data.code}}</td>
           <ng-container *ngIf='show'>
               <td>{{data.quote_recieved}}</td>

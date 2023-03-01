@@ -68,12 +68,13 @@ export class LoginService {
     return this.http.get(`${this.baseURL}deleteUser.php?id=${id}`);
   }
 
-  updateUser(id: any, username: string, password: string) {
+  updateUser(id: any, username: string, password: string, types: string) {
 
     let userData = new FormData();
     userData.append('id', id);
     userData.append('username', username);
     userData.append('password', password);
+    userData.append('types', types);
 
     return this.http.post(`${this.baseURL}updateUser.php`, userData);
   }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../service/login.service';
 import { TypeService } from '../service/type.service';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-user-manager-modal',
@@ -18,8 +19,9 @@ export class UserManagerModalComponent implements OnInit {
   username: string;
   password: string;
   newUserSelectedTypes: number[] = [];
+  userTypes: number[] = [];
 
-  constructor(private loginService: LoginService, private typeService: TypeService) { }
+  constructor(private loginService: LoginService, private typeService: TypeService, private cd: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.getUsers();
@@ -39,6 +41,14 @@ export class UserManagerModalComponent implements OnInit {
       this.newUserSelectedTypes = this.newUserSelectedTypes.filter( item => item !== id )
     } else {
       this.newUserSelectedTypes.push(id);
+    }
+  }
+
+  addTypeToOldUser(id) {
+    if (this.userTypes.includes(id)) {
+      this.userTypes = this.userTypes.filter( item => item !== id )
+    } else {
+      this.userTypes.push(id);
     }
   }
 
@@ -73,11 +83,19 @@ export class UserManagerModalComponent implements OnInit {
   }
 
   updateForm(index: number) {
-    this.username = this.users[index].login;
-    this.password = this.users[index].password;
-    this.editId = this.users[index].id;
-    this.showForm = true;
-    this.mode = false;
+    this.typeService.getUserTypes(this.users[index].id).subscribe((resp: any) => {
+      this.userTypes = resp.map( t => t.type_id );
+      this.username = this.users[index].login;
+      this.password = this.users[index].password;
+      this.editId = this.users[index].id;
+      this.showForm = true;
+      this.mode = false;
+      this.cd.detectChanges();
+    });    
+  }
+
+  isUserType(typeId) {
+    return this.userTypes.includes(typeId);
   }
 
   resetForm() {
@@ -93,7 +111,8 @@ export class UserManagerModalComponent implements OnInit {
         if (resp == 1 ) this.getUsers();
       });
     } else {
-      this.loginService.updateUser(this.editId, this.username, this.password).subscribe ( (resp) => {
+      const types = this.userTypes.join(',');
+      this.loginService.updateUser(this.editId, this.username, this.password, types).subscribe ( (resp) => {
         console.log(resp);
         if (resp == 1 ) this.getUsers();
       });

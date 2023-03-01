@@ -17,9 +17,11 @@ export class LoginComponent {
   
   login(){  
     this.loginService.login(this.username, this.password, this.getCurrentDateTime()).subscribe( (resp: any) => {
-      if(resp == 1){
+      if(resp !== 0){
+        console.log(resp);
         localStorage.setItem('token', ((new Date()).getTime()).toString() );
         localStorage.setItem('user', this.username);
+        localStorage.setItem('userId', resp);
         this.loginError = false;
         this.loginService.loginChange.next();
       } else {

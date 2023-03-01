@@ -16,6 +16,7 @@ export class Project{
     bidType: string;
     reasonNotBidding: string;
     epnum: string
+    type: string;
 
     constructor(){
         this.submitByDay = null;
@@ -34,6 +35,7 @@ export class Project{
         this.bidType = null;
         this.reasonNotBidding = null;
         this.epnum = null;
+        this.type = 'Software';
     }
     
 }

@@ -1,6 +1,8 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Project } from './project';
 import { ProjectService } from '../service/project.service';
+import { LoginService } from '../service/login.service';
+import { TypeService } from '../service/type.service';
 
 @Component({
   selector: 'app-add-new-modal',
@@ -25,13 +27,17 @@ export class AddNewModalComponent implements OnInit {
 
   formData: FormData = new FormData();
   rejectionFile: File = null;
+  types: any[] = [];
 
   @Output() projectAdded: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(private projectService: ProjectService) { }
+  constructor(private projectService: ProjectService, private loginService: LoginService, private typeService: TypeService) { }
 
   ngOnInit() {
     this.showReasonField = false;
+    this.typeService.getAllTypes().subscribe( (resp: any) => {
+      this.types = resp;
+    })
   }
 
   toggleReasonField(){
