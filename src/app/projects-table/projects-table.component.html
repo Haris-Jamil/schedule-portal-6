@@ -9,9 +9,10 @@
           <th>Project Type</th>
           <th>Code</th>
           <th>Reason</th>
+          <th>Rejection Link</th>
           <ng-container *ngIf='show'>
-              <th style="width: 100px;" >Mark</th>
-              <th style="width: 100px;" >Actions</th>
+              <!-- <th style="width: 100px;" >Mark</th> -->
+              <!-- <th style="width: 100px;" >Actions</th> -->
           </ng-container>         
         </tr>
       
@@ -25,16 +26,17 @@
           <td>{{data.ptype}}</td>
           <td>{{data.code}}</td>
           <td>{{data.reason}}</td>
+          <td> <a target="_blank" title={{data.rejection_file_ut}} *ngIf="data.rejection_link != '' " href="{{uploadUrl}}{{data.rejection_link}}">Rejection File</a> </td>
           <ng-container *ngIf='show'>
-            <td class="menu-column">
+            <!-- <td class="menu-column">
                 <a class='exclaim-btn' href="javascript:void(0)" (click)="markRejection(data.id, 'error', i)" ><span title="Mark As Error" class='fa fa-exclamation fa-lg'></span></a>                                
                 <a class='done-btn' href="javascript:void(0)" (click)="markRejection(data.id, 'done', i)" ><span title="Mark As Done" class='fa fa-check-circle-o fa-lg'></span></a>
                 <a class='verf-btn' href="javascript:void(0)" (click)="markRejection(data.id, 'verified', i)" ><span title="Still issue" class='fa fa-exclamation-triangle fa-lg'></span></a>  
-            </td>            
-            <td class="menu-column">                                 
+            </td>             -->
+            <!-- <td class="menu-column">                                 
                 <a class='delete-btn' href="javascript:void(0)" (click)="deleteRejection(data.id, i)" ><span title="Delete" class='fa fa-trash fa-lg'></span></a>                
                 <a class='edit-btn' href="javascript:void(0)"  data-toggle="modal" data-target="#editRejectionModal" (click)="openEditModal(data.id, i)" ><span title="Edit" class='fa fa-pencil fa-lg'></span></a>
-            </td>              
+            </td>               -->
           </ng-container>                                               
         </tr>      
       </table>
@@ -89,7 +91,7 @@
               <td>{{data._cc}}</td>
               <td>{{data.submitted}}</td>
               
-              <td>{{data.epnum}}</td>
+              <td>{{data.refnum}}</td>
           </ng-container>
           <td>{{data.reason}}</td>                   
           <!-- <td>

@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { ProjectService } from '../service/project.service';
+import { RejectionService } from '../service/rejection.service';
 import { TypeService } from '../service/type.service';
 declare var $;
 
@@ -19,6 +20,8 @@ export class EditModalComponent implements OnInit, OnChanges {
   otherReason: string = '';
   quoteRec: number = 0;
   loading: boolean = false;
+  loadingRejectionDlt: boolean = false;
+  loadingCopy: boolean = false;
 
   msgType: string;
   msg: string;
@@ -37,7 +40,7 @@ export class EditModalComponent implements OnInit, OnChanges {
     'SR': false
   };
   
-  constructor(private projectService: ProjectService, private typeService: TypeService) { }
+  constructor(private projectService: ProjectService, private typeService: TypeService, private rejectionService: RejectionService) { }
 
   
   reInitForm(){
@@ -107,15 +110,16 @@ export class EditModalComponent implements OnInit, OnChanges {
   }
 
   copyProject(): void {
+    this.loadingCopy = true;
     this.projectService.copyProject(this.updateData.id).subscribe((response) => {
       if(response == 1){
         this.projectService.emitDataChange();
-        this.loading = false;
+        this.loadingCopy = false;
         this.msgType = 'success';
         this.notify('success', 'Copy Successful');
         $('#editModal').modal('toggle');
       } else {
-        this.loading = false;
+        this.loadingCopy = false;
         this.notify('danger', 'Some Error occured');
       }
     });
@@ -144,8 +148,9 @@ export class EditModalComponent implements OnInit, OnChanges {
       'state': this.updateData.state,
       'qr': this.quoteRec,     
       'cc': this.getSelectCC(),
-      'epnum': this.updateData.epnum,
-      'type': this.updateData.ptype
+      'refnum': this.updateData.refnum,
+      'type': this.updateData.ptype,
+      'code': this.updateData.code
     }
 
     for(let key in editObj)
@@ -191,6 +196,21 @@ export class EditModalComponent implements OnInit, OnChanges {
     setTimeout(() => {
       this.showMsg = false;
     }, 2000);
+  }
+
+  deleteRejectionFile() {
+    this.loadingRejectionDlt = true;
+    this.rejectionService.deleteRejectionFile(this.updateData.id).subscribe( (resp) => {
+      if(resp == 1){
+        this.projectService.emitDataChange();
+        this.loadingRejectionDlt = false;
+        this.notify('success', 'File deleted');
+        $('#editModal').modal('toggle');
+      } else {
+        this.loadingRejectionDlt = false;
+        this.notify('danger', 'Some Error occured');
+      }
+    } );
   }
 
 }

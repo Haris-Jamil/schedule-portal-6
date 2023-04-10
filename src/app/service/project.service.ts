@@ -8,7 +8,7 @@ import {  Subject, of } from 'rxjs';
 export class ProjectService {
 
   baseURL: string = 'https://tii-usa.com/tii-server-6/api/';
-  dailyBidsUrl: string = 'https://tii-usa.com/dailybids/services/';
+  dailyBidsUrl: string = 'https://tii-usa.com/dailybids6/services/';
   dataChange = new Subject<any>();
 
   constructor(private http: HttpClient) { }

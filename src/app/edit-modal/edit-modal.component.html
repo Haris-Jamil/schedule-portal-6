@@ -34,7 +34,7 @@
           </div>
 
           <div class="form-inline form-row">
-              <input [(ngModel)]="updateData.code" disabled name="code" type="text" class="form-control form-control-sm form-input-lg" placeholder="code" >
+              <input [(ngModel)]="updateData.code" name="code" type="text" class="form-control form-control-sm form-input-lg" placeholder="code" >
           </div>
 
           <div class="form-inline form-row">
@@ -240,7 +240,7 @@
           <br>       
           
           <div class="form-inline form-row">
-            <input [(ngModel)]="updateData.epnum" name="epnum" type="text" class="form-control form-control-sm form-input-lg" placeholder="EP #" >
+            <input [(ngModel)]="updateData.refnum" name="refnum" type="text" class="form-control form-control-sm form-input-lg" placeholder="EP #" >
           </div>
           <br>      
           
@@ -253,8 +253,11 @@
         <button type="button" (click)="editProject()" class="btn btn-success" >
           <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Edit Project
         </button>
+        <button type="button" (click)="deleteRejectionFile()" class="btn btn-success" >
+          <span *ngIf="loadingRejectionDlt" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Delete Rejection File
+        </button>
         <button type="button" (click)="copyProject()" class="btn btn-success" >
-          <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Copy Project
+          <span *ngIf="loadingCopy" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Copy Project
         </button>
       </div>
       

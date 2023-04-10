@@ -44,5 +44,8 @@ export class RejectionService {
     return this.http.get(`${this.baseURL}getCounts.php`);
   }
 
+  deleteRejectionFile(id) {
+    return this.http.get(`${this.baseURL}addRejectionFile.php?id=${id}`);
+  }
  
 }

@@ -115,7 +115,7 @@ export class MenuComponent implements OnInit, OnChanges {
         .subscribe( (data: any[]) => {
           this.isDataLoading = false;
           this.originalData = data;      
-          // this.fetchTotalProjects();
+          this.fetchTotalProjects();
         }, (error) => {
           console.error(error);
         });

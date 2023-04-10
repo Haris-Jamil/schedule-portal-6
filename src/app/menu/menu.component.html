@@ -36,9 +36,9 @@
             <button class='btn btn-success menu-btn' data-toggle="modal" data-target="#addNewModal" >Add New <span class='fa fa-plus-circle' ></span></button>
           </ng-container>          
           
-          <ng-container *ngIf="rejectionMode" >
+          <!-- <ng-container *ngIf="rejectionMode" >
             <button class='btn btn-success menu-btn' data-toggle="modal" data-target="#addNewRejectionModal" >Add Rejection <span class='fa fa-plus-circle' ></span></button>
-          </ng-container>          
+          </ng-container>           -->
 
 
           <div class="dropdown"  *ngIf='show'>
@@ -67,7 +67,7 @@
 
         <ng-container *ngIf="!rejectionMode" >
           <button (click)='fetchProjects()' class="btn btn-success menu-btn btn-sm" >Search <i class="fa fa-search-plus"></i></button>          
-          <!-- <button class='btn btn-primary menu-btn btn-sm' data-toggle="modal" data-target="#projectDifferenceModal" >Project difference</button> -->
+          <button class='btn btn-primary menu-btn btn-sm' data-toggle="modal" data-target="#projectDifferenceModal" >Project difference</button>
           <button class='btn btn-success menu-btn btn-sm' click="javascript:void(0)" ><strong>{{filteredData.length}} projects found </strong> </button>        
           <a *ngIf='show' class='btn btn-success menu-btn btn-sm' href="https://www.tii-usa.com/portals/schedule-portal-4/?rejection=true" target="_blank" >Rejected Projects</a>
         </ng-container>
@@ -95,8 +95,8 @@
 <div *ngIf="isDataLoading" class="progress-bar bg-success progress-bar-striped progress-bar-animated"></div>
 <app-add-new-modal (projectAdded)="fetchProjects()" ></app-add-new-modal>
 <app-add-rejection-modal (rejectionAdded)="fetchRejections()" ></app-add-rejection-modal>
-<!-- <ng-container *ngIf="!rejectionMode" >
+<ng-container *ngIf="!rejectionMode" >
   <app-project-count-modal [data]="projectCount" ></app-project-count-modal>
-</ng-container> -->
+</ng-container>
 <app-user-manager-modal></app-user-manager-modal>
 <app-type-manager-modal></app-type-manager-modal>
