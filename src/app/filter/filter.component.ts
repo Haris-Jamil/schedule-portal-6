@@ -43,6 +43,9 @@ export class FilterComponent implements OnInit, OnChanges {
   done: boolean = false;
   verified: boolean = false;
 
+  fboNature: boolean = false;
+  stateNature: boolean = false;
+
   constructor(private loginService: LoginService){      
   }
 
@@ -79,7 +82,9 @@ export class FilterComponent implements OnInit, OnChanges {
            (this.rfiFile ? (d.rfi_link != "" ? true : false ) : true ) && 
            (this.error ? (d.status == "" ? false : d.status === 'error') : true ) &&
            (this.done ? (d.status == "" ? false : d.status === 'done') : true ) &&
-           (this.verified ? (d.status == "" ? false : d.status === 'verified') : true )
+           (this.verified ? (d.status == "" ? false : d.status === 'verified') : true ) &&
+           (this.fboNature ? (d.nature.toUpperCase() == "fbo".toUpperCase()) : true  ) &&
+           (this.stateNature ? (d.nature.toUpperCase() == "state".toUpperCase()) : true  )
     )
     this.dataFiltered.emit(this.filteredData);
   }

@@ -95,5 +95,9 @@ export class AddNewModalComponent implements OnInit {
     }, 2000);
   }
 
+  setNatureOfBid(bidNature: string){
+    this.newProject.nature = bidNature; 
+  }
+
 }
 

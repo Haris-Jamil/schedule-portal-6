@@ -50,6 +50,24 @@
 
       <div>
         <div class="form-check-inline">
+          <label class="form-check-label menu-label">Nature:</label>
+        </div>
+  
+        <div class="form-check-inline">
+          <label class="form-check-label">
+            <input (change)="applyFilter(dataToFilter)" [(ngModel)]="fboNature" type="checkbox" class="form-check-input" value="">FBO
+          </label>
+        </div>
+        <div class="form-check-inline">
+          <label class="form-check-label">
+            <input (change)="applyFilter(dataToFilter)" [(ngModel)]="stateNature" type="checkbox" class="form-check-input" value="">State
+          </label>
+        </div>
+           
+      </div>
+
+      <div>
+        <div class="form-check-inline">
           <label class="form-check-label menu-label">Type:</label>
         </div>
   

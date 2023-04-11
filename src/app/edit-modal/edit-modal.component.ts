@@ -15,6 +15,7 @@ export class EditModalComponent implements OnInit, OnChanges {
 
   to: string;
   typeOfBid: string;
+  natureOfBid: string;
   wRemarks: string;
   zRemarks: string;
   otherReason: string = '';
@@ -46,6 +47,7 @@ export class EditModalComponent implements OnInit, OnChanges {
   reInitForm(){
     this.to = undefined;
     this.typeOfBid = undefined;
+    this.natureOfBid = undefined;
     this.wRemarks = undefined;
     this.zRemarks = undefined;
     this.otherReason = '';
@@ -79,6 +81,7 @@ export class EditModalComponent implements OnInit, OnChanges {
     this.updateData = changes.updateData.currentValue;        
     this.to = this.updateData._to;
     this.typeOfBid = this.updateData.type;
+    this.natureOfBid = this.updateData.nature;
     this.wRemarks = this.updateData.WJ;
     this.zRemarks = this.updateData.ZB;
     this.otherReason = this.updateData.reason;
@@ -137,6 +140,7 @@ export class EditModalComponent implements OnInit, OnChanges {
       'zValid': this.getradioValue('zRadio'),
       'wValid': this.getradioValue('wRadio'),    
       'typeOfBid': this.getradioValue('optradio'),
+      'nature': this.getradioValue('optradioEdit'),
       'reason': this.otherReason,  
       'submitByDay': this.updateData.submit_by_day,
       'submitByMonth': this.updateData.submit_by_month,

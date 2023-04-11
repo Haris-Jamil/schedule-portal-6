@@ -103,6 +103,24 @@
           </div>
           <br>
 
+          <label><b>Nature of bid:</b></label>
+          <div class="form-inline form-row" >
+
+            <div class="form-check-inline">
+              <label class="form-check-label">
+                <input (click)="setNatureOfBid('FBO')" type="radio" class="form-check-input" name="optradio">FBO
+              </label>
+            </div>
+
+            <div class="form-check-inline">
+              <label class="form-check-label">
+                <input (click)="setNatureOfBid('State')"  type="radio" class="form-check-input" name="optradio">State
+              </label>
+            </div>            
+             
+          </div>
+          <br>
+
           <label><b>Reasons for not bidding:</b></label>
           <div class="form-inline form-row" >
             <div class="form-check-inline">
