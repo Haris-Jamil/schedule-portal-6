@@ -13,7 +13,7 @@
           <th>Rejection Link</th>
           <ng-container *ngIf='show'>
               <!-- <th style="width: 100px;" >Mark</th> -->
-              <!-- <th style="width: 100px;" >Actions</th> -->
+              <th style="width: 100px;" >Actions</th>
           </ng-container>         
         </tr>
       
@@ -35,10 +35,10 @@
                 <a class='done-btn' href="javascript:void(0)" (click)="markRejection(data.id, 'done', i)" ><span title="Mark As Done" class='fa fa-check-circle-o fa-lg'></span></a>
                 <a class='verf-btn' href="javascript:void(0)" (click)="markRejection(data.id, 'verified', i)" ><span title="Still issue" class='fa fa-exclamation-triangle fa-lg'></span></a>  
             </td>             -->
-            <!-- <td class="menu-column">                                 
-                <a class='delete-btn' href="javascript:void(0)" (click)="deleteRejection(data.id, i)" ><span title="Delete" class='fa fa-trash fa-lg'></span></a>                
-                <a class='edit-btn' href="javascript:void(0)"  data-toggle="modal" data-target="#editRejectionModal" (click)="openEditModal(data.id, i)" ><span title="Edit" class='fa fa-pencil fa-lg'></span></a>
-            </td>               -->
+            <td class="menu-column">                                 
+                <a class='delete-btn' href="javascript:void(0)" (click)="deleteProject(data.id, i)" ><span title="Delete" class='fa fa-trash fa-lg'></span></a>                
+                <!-- <a class='edit-btn' href="javascript:void(0)"  data-toggle="modal" data-target="#editRejectionModal" (click)="openEditModal(data.id, i)" ><span title="Edit" class='fa fa-pencil fa-lg'></span></a> -->
+            </td>              
           </ng-container>                                               
         </tr>      
       </table>
@@ -80,7 +80,7 @@
       
         <tr *ngFor="let data of projectsData; index as i" 
             [ngClass]="show ? data.submitted == 'yes' || data.submitted == 'HO' ? 'table-success' : data.submitted == 'no' ? 'table-danger' : data.status == 'yes' ? 'table-warning' : data.rfi_link != '' ? 'table-primary' : '' : '' " >  
-            <ng-container *ngIf="rejectionMode || data.rejection_link == '' || data.rejection_link == null ">
+            <ng-container *ngIf="rejectionMode || data.rejection_link == '' || data.rejection_link == null || !show ">
                 <td>{{data.submit_by_month}}-{{data.submit_by_day}}-{{data.submit_by_year}}</td>          
                 <td>{{data.submit_by_hour}}:{{data.submit_by_minute}} {{data.meridiem}} {{data.timeZone}}</td>
                 <td title="{{data.project_added}}" >{{data.folder_assigned_month}}-{{data.folder_assigned_day}}-{{data.folder_assigned_year}}</td>
