@@ -140,7 +140,7 @@ export class EditModalComponent implements OnInit, OnChanges {
       'zValid': this.getradioValue('zRadio'),
       'wValid': this.getradioValue('wRadio'),    
       'typeOfBid': this.getradioValue('optradio'),
-      'nature': this.getradioValue('optradioEdit'),
+      'nature': this.getradioValue('natureRadio'),
       'reason': this.otherReason,  
       'submitByDay': this.updateData.submit_by_day,
       'submitByMonth': this.updateData.submit_by_month,
