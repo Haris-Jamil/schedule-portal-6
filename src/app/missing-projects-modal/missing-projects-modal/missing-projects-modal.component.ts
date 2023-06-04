@@ -34,6 +34,10 @@ export class MissingProjectsModalComponent implements OnInit, OnChanges {
         this.missingProjects.push(title);
       }
     }
+    if (this.missingProjects.length === 0) {
+      this.showSuccess = true;
+      setTimeout
+    }
   }
 
 }
