@@ -11,6 +11,7 @@ export class MissingProjectsModalComponent implements OnInit, OnChanges {
   @Input() data;
   allTitles: string[];
   missingProjects: string[] = [];
+  showSuccess: boolean;
 
   constructor() { }
 
@@ -28,7 +29,7 @@ export class MissingProjectsModalComponent implements OnInit, OnChanges {
 
   checkProjects(titleText: string) {
     this.missingProjects = [];
-    const inputTitles: string[] = titleText.split('\n');
+    const inputTitles: string[] = titleText.split('\n').map( (t) => t.trim() );
     for (let title of inputTitles) {
       if (!this.allTitles.includes(title)) {
         this.missingProjects.push(title);
@@ -36,7 +37,9 @@ export class MissingProjectsModalComponent implements OnInit, OnChanges {
     }
     if (this.missingProjects.length === 0) {
       this.showSuccess = true;
-      setTimeout
+      setTimeout( () => {
+        this.showSuccess = false;
+      }, 5000);
     }
   }
 

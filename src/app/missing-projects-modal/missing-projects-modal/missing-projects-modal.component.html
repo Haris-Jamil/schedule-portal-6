@@ -18,6 +18,10 @@
             <li *ngFor="let title of missingProjects" >{{title}}</li>
           </ol>
         </ng-container>
+
+        <ng-container *ngIf="showSuccess" >
+          <h5>All Projects Added</h5>
+        </ng-container>
         
       </div>
 
