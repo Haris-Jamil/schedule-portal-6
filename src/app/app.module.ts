@@ -15,6 +15,7 @@ import { UserManagerModalComponent } from './user-manager-modal/user-manager-mod
 import { AddRejectionModalComponent } from './add-rejection-modal/add-rejection-modal.component';
 import { RejectionEditModalComponent } from './rejection-edit-modal/rejection-edit-modal.component';
 import { TypeManagerModalComponent } from './type-manager-modal/type-manager-modal.component';
+import { MissingProjectsModalComponent } from './missing-projects-modal/missing-projects-modal/missing-projects-modal.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { TypeManagerModalComponent } from './type-manager-modal/type-manager-mod
     UserManagerModalComponent,
     AddRejectionModalComponent,
     RejectionEditModalComponent,
-    TypeManagerModalComponent
+    TypeManagerModalComponent,
+    MissingProjectsModalComponent
   ],
   imports: [
     BrowserModule,

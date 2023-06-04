@@ -1,0 +1,26 @@
+<div class="modal fade" id="missingProjectsModal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h4 class="modal-title">Missing Projects</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      
+      <div class="modal-body">        
+        <textarea #titleText [(ngModel)]="titlesText" id="titleArea" class="form-control" rows="10" placeholder="Add Project Titles here...." ></textarea>
+        <button class="btn btn-primary btn-sn" (click)="checkProjects(titleText.value)" >Check</button>
+        
+        <ng-container *ngIf="missingProjects.length">
+          <hr>
+          <h5>Not Added Projects:</h5>
+          <ol class="listing" >
+            <li *ngFor="let title of missingProjects" >{{title}}</li>
+          </ol>
+        </ng-container>
+        
+      </div>
+
+    </div>
+  </div>
+</div>

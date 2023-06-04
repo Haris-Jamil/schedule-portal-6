@@ -107,7 +107,7 @@ export class MenuComponent implements OnInit, OnChanges {
       this.year = (new Date()).getFullYear().toString();
     }
     if(this.month === "" || this.month === null){
-      this.month = ((new Date()).getMonth() + 1).toString();
+      // this.month = ((new Date()).getMonth() + 1).toString();
     }
     if(this.date != '' || this.month != '' || this.year != ''){
       this.isDataLoading = true;
