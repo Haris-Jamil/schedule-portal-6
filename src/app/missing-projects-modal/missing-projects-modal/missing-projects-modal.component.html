@@ -8,7 +8,7 @@
       </div>
       
       <div class="modal-body">        
-        <textarea #titleText [(ngModel)]="titlesText" id="titleArea" class="form-control" rows="10" placeholder="Add Project Titles here...." ></textarea>
+        <textarea #titleText id="titleArea" class="form-control" rows="10" placeholder="Add Project Titles here...." ></textarea>
         <button class="btn btn-primary btn-sn" (click)="checkProjects(titleText.value)" >Check</button>
         
         <ng-container *ngIf="missingProjects.length">

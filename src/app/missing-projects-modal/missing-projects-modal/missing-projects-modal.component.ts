@@ -28,6 +28,7 @@ export class MissingProjectsModalComponent implements OnInit, OnChanges {
   }
 
   checkProjects(titleText: string) {
+    this.showSuccess = false;
     this.missingProjects = [];
     const inputTitles: string[] = titleText.split('\n').map( (t) => t.trim() );
     for (let title of inputTitles) {
