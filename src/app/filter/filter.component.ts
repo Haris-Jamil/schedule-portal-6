@@ -26,6 +26,7 @@ export class FilterComponent implements OnInit, OnChanges {
   nes: boolean = false;
   submittedYes: boolean = false;
   submittedNo:boolean = false; 
+  active: boolean = false;
   fileYes: boolean = false;
   fileNo: boolean = false;
   wjValid: boolean = false;
@@ -84,7 +85,8 @@ export class FilterComponent implements OnInit, OnChanges {
            (this.done ? (d.status == "" ? false : d.status === 'done') : true ) &&
            (this.verified ? (d.status == "" ? false : d.status === 'verified') : true ) &&
            (this.fboNature ? (d.nature.toUpperCase() == "fbo".toUpperCase()) : true  ) &&
-           (this.stateNature ? (d.nature.toUpperCase() == "state".toUpperCase()) : true  )
+           (this.stateNature ? (d.nature.toUpperCase() == "state".toUpperCase()) : true  ) &&
+           (this.active ? ((d.status == null || d.status == "yes") && (d.submitted == null || d.submitted == "") && d.rfi_link == "" ) : true)
     )
     this.dataFiltered.emit(this.filteredData);
   }
