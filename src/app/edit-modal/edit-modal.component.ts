@@ -27,6 +27,7 @@ export class EditModalComponent implements OnInit, OnChanges {
   msgType: string;
   msg: string;
   showMsg: boolean = false;
+  awarded: string = "";
 
   types: any[] = [];
 
@@ -57,6 +58,7 @@ export class EditModalComponent implements OnInit, OnChanges {
     this.msgType = undefined;
     this.msg = undefined;
     this.showMsg= false;
+    this.awarded = '';    
 
     this.cc = { 
       'BD': false,
@@ -86,6 +88,7 @@ export class EditModalComponent implements OnInit, OnChanges {
     this.zRemarks = this.updateData.ZB;
     this.otherReason = this.updateData.reason;
     this.quoteRec = this.updateData.quote_recieved;
+    this.awarded = this.updateData.awarded;
     let submitRadio: any;
     if(this.updateData.submitted){      
       submitRadio = <any>document.querySelector(`input[name="subRadio"][value="${this.updateData.submitted}"]`);
@@ -154,7 +157,8 @@ export class EditModalComponent implements OnInit, OnChanges {
       'cc': this.getSelectCC(),
       'refnum': this.updateData.refnum,
       'type': this.updateData.ptype,
-      'code': this.updateData.code
+      'code': this.updateData.code,
+      'awarded': this.awarded
     }
 
     for(let key in editObj)
