@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { Route, Routes, RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { MenuComponent } from './menu/menu.component';
@@ -16,6 +17,13 @@ import { AddRejectionModalComponent } from './add-rejection-modal/add-rejection-
 import { RejectionEditModalComponent } from './rejection-edit-modal/rejection-edit-modal.component';
 import { TypeManagerModalComponent } from './type-manager-modal/type-manager-modal.component';
 import { MissingProjectsModalComponent } from './missing-projects-modal/missing-projects-modal/missing-projects-modal.component';
+import { HomeComponent } from './home/home.component';
+import { InteractiveChartsComponent } from './interactive-charts/interactive-charts.component';
+
+const appRoutes: Routes = [
+  { path: '', component: HomeComponent},
+  { path: 'interactive-charts', component: InteractiveChartsComponent }
+]
 
 @NgModule({
   declarations: [
@@ -31,12 +39,15 @@ import { MissingProjectsModalComponent } from './missing-projects-modal/missing-
     AddRejectionModalComponent,
     RejectionEditModalComponent,
     TypeManagerModalComponent,
-    MissingProjectsModalComponent
+    MissingProjectsModalComponent,
+    HomeComponent,
+    InteractiveChartsComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [],
   bootstrap: [AppComponent]

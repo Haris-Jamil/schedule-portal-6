@@ -52,7 +52,7 @@
               <a class="dropdown-item" data-toggle="modal" data-target="#missingProjectsModal"  href="javascript:void(0)">Unuploaded Projects</a>     
               <a class="dropdown-item" target="_blank" href="https://tii-usa.com/dailybids6/">Daily Bids</a>
               <a class="dropdown-item" target="_blank" href="http://tii-usa.com/bidscheduler/showtally6.php">Total Tally</a>  
-              <a class="dropdown-item" target="_blank" href="http://tii-usa.com/bidscheduler/report.php?type=6">Interactive Reports</a>      
+              <a class="dropdown-item" target="_blank" [routerLink]="['/interactive-charts']">Interactive Reports</a>      
             </div>
           </div>
           <button class='btn btn-danger menu-btn' (click)="logout()" >Logout</button>

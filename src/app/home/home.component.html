@@ -1,0 +1,12 @@
+<div *ngIf="isLogedIn" >
+  <div class="menu-container">
+      <app-menu [refreshSignal]="refreshSignal" (dataLoaded)="dataReceived($event)" ></app-menu>
+  </div>
+  <div class="project-table-container">
+      <app-projects-table (rejectionMarked)="updateCount($event)" [projectsData]="data" ></app-projects-table>
+  </div>
+</div>
+
+<div *ngIf="!isLogedIn" >
+  <app-login></app-login>
+</div>

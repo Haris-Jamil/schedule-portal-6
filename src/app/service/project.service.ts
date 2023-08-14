@@ -9,9 +9,15 @@ export class ProjectService {
 
   baseURL: string = 'https://tii-usa.com/tii-server-6/api/';
   dailyBidsUrl: string = 'https://tii-usa.com/dailybids6/services/';
+  chartApi: string = 'https://tii-usa.com/bidscheduler/getChartData.php';
+  chartApiWins: string = 'https://tii-usa.com/bidscheduler/getChartDataWins.php';
   dataChange = new Subject<any>();
 
   constructor(private http: HttpClient) { }
+
+  getChartData(data, wins = false) {
+    return this.http.post(`${ wins ? this.chartApiWins : this.chartApi}`, data);
+  }
 
   fetchProjects(date: string, month: string, year: string){
     return this.http.get(`${this.baseURL}getProjects.php?date=${date}&month=${month}&year=${year}`);

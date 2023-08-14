@@ -1,0 +1,55 @@
+<h2 style="text-align: center;margin-top: 10px;" >CS-2 Performance Charts</h2>
+<hr>
+<div class="menu" >
+    
+    <label>Operator:</label>
+    <select [(ngModel)]="operator" id='operator' class='form-control' name="operator" > 
+        <option value="CS2" >CS2</option>       
+        <option value="AAA">AAA</option>
+        <option value="BBB">BBB</option>
+        <option value="CCC">CCC</option>
+        <option value="DDD">DDD</option>
+        <option value="EEE">EEE</option>
+        <option value="FFF">FFF</option>
+        <option value="GGG">GGG</option>
+        <option value="HHH">HHH</option>
+        <option value="III">III</option>
+        <option value="JJJ">JJJ</option>
+        <option value="KKK">KKK</option>
+        <option value="LLL">LLL</option>
+        <option value="MMM">MMM</option>
+        <option value="NNN">NNN</option>
+        <option value="OOO">OOO</option>
+        <option value="PPP">PPP</option>
+        <option value="QQQ">QQQ</option>
+        <option value="RRR">RRR</option>
+        <option value="SSS">SSS</option>
+        <option value="TTT">TTT</option>
+        <option value="UUU">UUU</option>
+        <option value="VVV">VVV</option>
+        <option value="WWW">WWW</option>
+        <option value="YYY">YYY</option>
+        <option value="ZZZ">ZZZ</option>
+    </select>
+    
+    <label>Year:</label>
+     <select [(ngModel)]="year" id='year' class='form-control' name="year" >
+        <option>2018</option>
+        <option>2019</option>
+        <option>2020</option>
+        <option>2021</option>
+        <option>2022</option>
+        <option>2023</option>
+        <option>2024</option>
+        <option>2025</option>
+    </select>
+    
+    <button (click)="generateChart()" type='button' id='chartBtn' class='btn btn-success' >Generate chart</button>
+    
+    <button (click)="clearChart()" type='button' id='clearBtn' class='btn btn-danger' >clear all charts</button>  
+</div>
+
+<div class="chart-container" >
+  <canvas id="myChart"></canvas>
+  <canvas id="myChart2"></canvas>
+</div>
