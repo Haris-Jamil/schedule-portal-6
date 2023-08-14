@@ -19,6 +19,7 @@ import { TypeManagerModalComponent } from './type-manager-modal/type-manager-mod
 import { MissingProjectsModalComponent } from './missing-projects-modal/missing-projects-modal/missing-projects-modal.component';
 import { HomeComponent } from './home/home.component';
 import { InteractiveChartsComponent } from './interactive-charts/interactive-charts.component';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent},
@@ -49,7 +50,9 @@ const appRoutes: Routes = [
     FormsModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [],
+  providers: [
+    {provide: LocationStrategy, useClass: HashLocationStrategy}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
