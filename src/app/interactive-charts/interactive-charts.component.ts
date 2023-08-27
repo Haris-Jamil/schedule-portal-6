@@ -81,7 +81,7 @@ export class InteractiveChartsComponent implements OnInit {
       resp = this.formatResponse(resp);
 
       const dataset = {
-        'label': this.operator + '-' + 2023,
+        'label': this.operator + '-' + this.year,
         'data': resp,
         'borderColor': this.lineColors[this.chartCount],
         'backgroundColor': this.bgColors[this.chartCount]
@@ -95,7 +95,7 @@ export class InteractiveChartsComponent implements OnInit {
       resp = this.formatResponse(resp);
 
       const dataset = {
-        'label': this.operator + '-' + 2023,
+        'label': this.operator + '-' + this.year,
         'data': resp,
         'borderColor': this.lineColors[this.chartCount],
         'backgroundColor': this.bgColors[this.chartCount]
