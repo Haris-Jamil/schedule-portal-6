@@ -157,10 +157,10 @@
 
                 <ng-container *ngIf='!show'>
                     <td>
-                        <a target="_blank" title={{data.result_rec}} *ngIf="data.result_rec != '' " href="{{uploadUrl}}{{data.result_rec}}">Result Rec</a> 
+                        <a target="_blank" title={{data.result_rec}} *ngIf="data.result_rec != '' && data.result_rec != null" href="{{uploadUrl}}{{data.result_rec}}">Result Rec</a> 
                     </td>
                     <td>
-                        <a target="_blank" title={{data.result_sent}} *ngIf="data.result_sent != '' " href="{{uploadUrl}}{{data.result_sent}}">Result Sent</a> 
+                        <a target="_blank" title={{data.result_sent}} *ngIf="data.result_sent != '' && data.result_sent != null " href="{{uploadUrl}}{{data.result_sent}}">Result Sent</a> 
                     </td>
                   </ng-container>
                     
@@ -176,10 +176,10 @@
 
                 <ng-container *ngIf='show'>
                     <td>
-                        <a target="_blank" title={{data.result_rec}} *ngIf="data.result_rec != '' " href="{{uploadUrl}}{{data.result_rec}}">Result Rec</a> 
+                        <a target="_blank" title={{data.result_rec}} *ngIf="data.result_rec != '' && data.result_rec != null" href="{{uploadUrl}}{{data.result_rec}}">Result Rec</a> 
                     </td>
                     <td>
-                        <a target="_blank" title={{data.result_sent}} *ngIf="data.result_sent != '' " href="{{uploadUrl}}{{data.result_sent}}">Result Sent</a> 
+                        <a target="_blank" title={{data.result_sent}} *ngIf="data.result_sent != '' && data.result_sent != null" href="{{uploadUrl}}{{data.result_sent}}">Result Sent</a> 
                     </td>
                   </ng-container>
             
@@ -220,7 +220,7 @@
                                 </div>
             
                                 <div class="choose_file">
-                                    <button type="button" class="btn bt-sm btn-default file-btn">No Quote</button>
+                                    <button type="button" class="btn bt-sm btn-defaulft file-btn">No Quote</button>
                                     <input type="file" class='edit-btn' href="javascript:void(0)" (change)="handleFileInput($event.target.files, 'noQuote', data.id)" />
                                 </div>
             
