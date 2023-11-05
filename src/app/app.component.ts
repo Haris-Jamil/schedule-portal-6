@@ -35,7 +35,7 @@ export class AppComponent implements OnInit {
         this.isLogedIn = this.loginService.isLogin();   
       })
     this.init();
-    this.startIdleWatcher();
+    // this.startIdleWatcher();
   }  
 
   init(): void {
