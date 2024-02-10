@@ -1,4 +1,4 @@
-<ng-container *ngIf="rejectionMode" >
+<!-- <ng-container *ngIf="rejectionMode" >
     <table class="table" >
         <tr class="table-header" >
           <th colspan="1" (click)="toggleSort()" >Submit By <i [ngClass]="dateSort == 'asc' ? 'fa fa-angle-down fa-lg' : 'fa fa-angle-up fa-lg' " ></i></th>
@@ -12,7 +12,6 @@
           <th>Reason</th>
           <th>Rejection Link</th>
           <ng-container *ngIf='show'>
-              <!-- <th style="width: 100px;" >Mark</th> -->
               <th style="width: 100px;" >Actions</th>
           </ng-container>         
         </tr>
@@ -30,222 +29,472 @@
           <td>{{data.reason}}</td>
           <td> <a target="_blank" title={{data.rejection_file_ut}} *ngIf="data.rejection_link != '' " href="{{uploadUrl}}{{data.rejection_link}}">Rejection File</a> </td>
           <ng-container *ngIf='show'>
-            <!-- <td class="menu-column">
-                <a class='exclaim-btn' href="javascript:void(0)" (click)="markRejection(data.id, 'error', i)" ><span title="Mark As Error" class='fa fa-exclamation fa-lg'></span></a>                                
-                <a class='done-btn' href="javascript:void(0)" (click)="markRejection(data.id, 'done', i)" ><span title="Mark As Done" class='fa fa-check-circle-o fa-lg'></span></a>
-                <a class='verf-btn' href="javascript:void(0)" (click)="markRejection(data.id, 'verified', i)" ><span title="Still issue" class='fa fa-exclamation-triangle fa-lg'></span></a>  
-            </td>             -->
             <td class="menu-column">                                 
-                <a class='delete-btn' href="javascript:void(0)" (click)="deleteProject(data.id, i)" ><span title="Delete" class='fa fa-trash fa-lg'></span></a>                
-                <!-- <a class='edit-btn' href="javascript:void(0)"  data-toggle="modal" data-target="#editRejectionModal" (click)="openEditModal(data.id, i)" ><span title="Edit" class='fa fa-pencil fa-lg'></span></a> -->
+                <a class='delete-btn' href="javascript:void(0)" (click)="deleteProject(data.id, i)" ><span title="Delete" class='fa fa-trash fa-lg'></span></a>                                
             </td>              
           </ng-container>                                               
         </tr>      
       </table>
       <app-rejection-edit-modal [updateData]="updateData"></app-rejection-edit-modal>
-</ng-container>
-
-<ng-container *ngIf="!rejectionMode">
-    <table class="table" >
-        <tr class="table-header" >
-          <th colspan="2" (click)="toggleSort()" >Submit By <i [ngClass]="dateSort == 'asc' ? 'fa fa-angle-down fa-lg' : 'fa fa-angle-up fa-lg' " ></i></th>
-          <th>Folder Assigned</th>
-          <th>Title</th>
-          <th>State</th>
-          <th>Type</th>
-          <th>Project Type</th>
-          <th>Code</th>
-          <th>Nature</th>
-          <ng-container *ngIf='show' >
-              <th>QR</th>
-              <th>TO</th>
-              <th>CC</th>
-              <th>Submitted</th>
-              <th>Awarded</th>   
-              <th>EP #</th>
-          </ng-container>  
-          <th>Reason</th>                      
-          <th>Upload Files</th>
-          <th>Result rec from buyer</th>
-          <th>Result sent to vendor</th>
-          <ng-container *ngIf='show'>
-              <!-- <th>WJ</th>
+</ng-container> -->
+<ng-container>
+  <table class="table">
+    <tr class="table-header">
+      <th colspan="2" (click)="toggleSort()">
+        Submit By
+        <i
+          [ngClass]="
+            dateSort == 'asc'
+              ? 'fa fa-angle-down fa-lg'
+              : 'fa fa-angle-up fa-lg'
+          "
+        ></i>
+      </th>
+      <th>Folder Assigned</th>
+      <th>Title</th>
+      <th>State</th>
+      <th>Type</th>
+      <th>Project Type</th>
+      <th>Code</th>
+      <th>Nature</th>
+      <ng-container *ngIf="show">
+        <th>QR</th>
+        <th>TO</th>
+        <th>CC</th>
+        <th>Submitted</th>
+        <th>Awarded</th>
+        <th>EP #</th>
+      </ng-container>
+      <th>Reason</th>
+      <th>Upload Files</th>
+      <th>Result rec from buyer</th>
+      <th>Result sent to vendor</th>
+      <ng-container *ngIf="show">
+        <!-- <th>WJ</th>
               <th>ZB</th> -->
-              <th>Add Files</th>
-              <th>Status</th>
-              <th>Edit</th>
-          </ng-container>
-          <ng-container *ngIf='!show'>
-              <th>Files</th>
-          </ng-container>          
-          
-        </tr>
-      
-        <tr *ngFor="let data of projectsData; index as i" 
-            [ngClass]="show ? data.submitted == 'yes' || data.submitted == 'HO' ? 'table-success' : data.submitted == 'no' ? 'table-danger' : data.status == 'yes' ? 'table-warning' : data.rfi_link != '' ? 'table-primary' : '' : '' " >  
-            <ng-container *ngIf="rejectionMode || data.rejection_link == '' || data.rejection_link == null || !show ">
-                <td>{{data.submit_by_month}}-{{data.submit_by_day}}-{{data.submit_by_year}}</td>          
-                <td>{{data.submit_by_hour}}:{{data.submit_by_minute}} {{data.meridiem}} {{data.timeZone}}</td>
-                <td title="{{data.project_added}}" >{{data.folder_assigned_month}}-{{data.folder_assigned_day}}-{{data.folder_assigned_year}}</td>
-                <td >{{data.title}}</td>
-                <td>{{data.state}}</td>
-                <td>{{data.type}}</td>
-                <td>{{data.ptype}}</td>
-                <td>{{data.code}}</td>
-                <td>{{data.nature}}</td>
-                <ng-container *ngIf='show'>
-                    <td>{{data.quote_recieved}}</td>
-                    <td>{{data._to}}</td>
-                    <td>{{data._cc}}</td>
-                    <td>{{data.submitted}}</td>
-                    <td>{{data.awarded}}</td>    
-                    <td>{{data.refnum}}</td>
-                </ng-container>
-                <td>{{data.reason}}</td>                   
-                <!-- <td>
+        <th>Add Files</th>
+        <th>Status</th>
+        <th>Edit</th>
+      </ng-container>
+      <ng-container *ngIf="!show">
+        <th>Files</th>
+      </ng-container>
+    </tr>
+
+    <tr
+      *ngFor="let data of projectsData; index as i"
+      [ngClass]="
+        show
+          ? data.submitted == 'yes' || data.submitted == 'HO'
+            ? 'table-success'
+            : data.submitted == 'no'
+            ? 'table-danger'
+            : data.status == 'yes'
+            ? 'table-warning'
+            : data.rfi_link != ''
+            ? 'table-primary'
+            : ''
+          : ''
+      "
+    >
+      <ng-container>
+        <td>
+          {{ data.submit_by_month }}-{{ data.submit_by_day }}-{{
+            data.submit_by_year
+          }}
+        </td>
+        <td>
+          {{ data.submit_by_hour }}:{{ data.submit_by_minute }}
+          {{ data.meridiem }} {{ data.timeZone }}
+        </td>
+        <td title="{{ data.project_added }}">
+          {{ data.folder_assigned_month }}-{{ data.folder_assigned_day }}-{{
+            data.folder_assigned_year
+          }}
+        </td>
+        <td>{{ data.title }}</td>
+        <td>{{ data.state }}</td>
+        <td>{{ data.type }}</td>
+        <td>{{ data.ptype }}</td>
+        <td>{{ data.code }}</td>
+        <td>{{ data.nature }}</td>
+        <ng-container *ngIf="show">
+          <td>{{ data.quote_recieved }}</td>
+          <td>{{ data._to }}</td>
+          <td>{{ data._cc }}</td>
+          <td>{{ data.submitted }}</td>
+          <td>{{ data.awarded }}</td>
+          <td>{{ data.refnum }}</td>
+        </ng-container>
+        <td>{{ data.reason }}</td>
+        <!-- <td>
                     <a target="_blank" title={{data.zip_ut}} *ngIf="data.zip_link != '' " href="{{uploadUrl}}{{data.zip_link}}">Zip Folder</a> 
                 </td> -->
-            
-                
-            
-                <ng-container *ngIf='!show'>
-                    <td class="menu-column" >
-                        <div class="dropdown">
-                            <button class="btn btn-sm btn-secondary dropdown-toggle menu-btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Upload
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 
-                                <div class="choose_file">
-                                    <button type="button" class="btn bt-sm btn-default file-btn">Result Rec From Buyer</button>
-                                    <input type="file" class='edit-btn' href="javascript:void(0)" (change)="handleFileInput($event.target.files, 'resultRec', data.id)" />
-                                </div>
-                                
-                                <div class="choose_file">
-                                    <button type="button" class="btn bt-sm btn-default file-btn">Result Send to vendor</button>
-                                    <input type="file" class='edit-btn' href="javascript:void(0)" (change)="handleFileInput($event.target.files, 'resultSent', data.id)" />
-                                </div>
+        <ng-container *ngIf="!show">
+          <td class="menu-column">
+            <div class="dropdown">
+              <button
+                class="btn btn-sm btn-secondary dropdown-toggle menu-btn"
+                type="button"
+                id="dropdownMenuButton"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Upload
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <div class="choose_file">
+                  <button type="button" class="btn bt-sm btn-default file-btn">
+                    Result Rec From Buyer
+                  </button>
+                  <input
+                    type="file"
+                    class="edit-btn"
+                    href="javascript:void(0)"
+                    (change)="
+                      handleFileInput($event.target.files, 'resultRec', data.id)
+                    "
+                  />
+                </div>
 
-                                <div class="choose_file">
-                                    <button type="button" class="btn bt-sm btn-default file-btn">Zipped Folder</button>
-                                    <input type="file" class='edit-btn' href="javascript:void(0)" accept=".zip,.rar"  (change)="handleFileInput($event.target.files, 'zip', data.id)" />
-                                </div>                                
-            
-                                <div class="choose_file">
-                                    <button type="button" class="btn bt-sm btn-default file-btn">RFI</button>
-                                    <input type="file" class='edit-btn' href="javascript:void(0)" (change)="handleFileInput($event.target.files, 'rfi', data.id)" />
-                                </div>
-            
-                                <div class="choose_file">
-                                    <button type="button" class="btn bt-sm btn-default file-btn">Rejection</button>
-                                    <input type="file" class='edit-btn' href="javascript:void(0)" (change)="handleFileInput($event.target.files, 'rejection', data.id)"  />
-                                </div>
-            
-                                <div class="choose_file">
-                                    <button type="button" class="btn bt-sm btn-default file-btn">No Quote</button>
-                                    <input type="file" class='edit-btn' href="javascript:void(0)" (change)="handleFileInput($event.target.files, 'noQuote', data.id)" />
-                                </div>
-            
-                                <div class="choose_file">
-                                    <button type="button" class="btn bt-sm btn-default file-btn">Bid Result</button>
-                                    <input type="file" class='edit-btn' href="javascript:void(0)" (change)="handleFileInput($event.target.files, 'bidResult', data.id)" />
-                                </div>
-                            </div>
-                            </div>
-                    </td>                                                                          
-                </ng-container>
+                <div class="choose_file">
+                  <button type="button" class="btn bt-sm btn-default file-btn">
+                    Result Send to vendor
+                  </button>
+                  <input
+                    type="file"
+                    class="edit-btn"
+                    href="javascript:void(0)"
+                    (change)="
+                      handleFileInput(
+                        $event.target.files,
+                        'resultSent',
+                        data.id
+                      )
+                    "
+                  />
+                </div>
 
-                <ng-container *ngIf='!show'>
-                    <td>
-                        <a target="_blank" title={{data.result_rec}} *ngIf="data.result_rec != '' && data.result_rec != null" href="{{uploadUrl}}{{data.result_rec}}">Result Rec</a> 
-                    </td>
-                    <td>
-                        <a target="_blank" title={{data.result_sent}} *ngIf="data.result_sent != '' && data.result_sent != null " href="{{uploadUrl}}{{data.result_sent}}">Result Sent</a> 
-                    </td>
-                  </ng-container>
-                    
-                <td>
-                    <a target="_blank" title={{data.rejection_file_ut}} *ngIf="data.rejection_link != '' " href="{{uploadUrl}}{{data.rejection_link}}">Rejection File</a> 
-                    <span *ngIf="data.rejection_link != '' && data.noquote_link != '' " > / </span>
-                    <a target="_blank" title={{data.noQoute_file_ut}} *ngIf="data.noquote_link != '' " href="{{uploadUrl}}{{data.noquote_link}}">RFQ File</a>
-                    <span *ngIf="(data.rejection_link != '' || data.noquote_link != '') && data.bidResult_link " > / </span>
-                    <a target="_blank" title={{data.bidResult_file_ut}} *ngIf="data.bidResult_link != '' " href="{{uploadUrl}}{{data.bidResult_link}}">Bid Result File</a>
-                    <span *ngIf="(data.rejection_link != '' || data.noquote_link != '' || data.bidResult_link != '') && data.rfi_link" > / </span>
-                    <a target="_blank" title={{data.rfi_file_ut}} *ngIf="data.rfi_link != '' " href="{{uploadUrl}}{{data.rfi_link}}">RFI File</a>
-                </td>
+                <div class="choose_file">
+                  <button type="button" class="btn bt-sm btn-default file-btn">
+                    Zipped Folder
+                  </button>
+                  <input
+                    type="file"
+                    class="edit-btn"
+                    href="javascript:void(0)"
+                    accept=".zip,.rar"
+                    (change)="
+                      handleFileInput($event.target.files, 'zip', data.id)
+                    "
+                  />
+                </div>
 
-                <ng-container *ngIf='show'>
-                    <td>
-                        <a target="_blank" title={{data.result_rec}} *ngIf="data.result_rec != '' && data.result_rec != null" href="{{uploadUrl}}{{data.result_rec}}">Result Rec</a> 
-                    </td>
-                    <td>
-                        <a target="_blank" title={{data.result_sent}} *ngIf="data.result_sent != '' && data.result_sent != null" href="{{uploadUrl}}{{data.result_sent}}">Result Sent</a> 
-                    </td>
-                  </ng-container>
-            
-                <ng-container *ngIf='show'>
-                    <!-- <td>{{data.WJ}}</td>
+                <div class="choose_file">
+                  <button type="button" class="btn bt-sm btn-default file-btn">
+                    RFI
+                  </button>
+                  <input
+                    type="file"
+                    class="edit-btn"
+                    href="javascript:void(0)"
+                    (change)="
+                      handleFileInput($event.target.files, 'rfi', data.id)
+                    "
+                  />
+                </div>
+
+                <div class="choose_file">
+                  <button type="button" class="btn bt-sm btn-default file-btn">
+                    Rejection
+                  </button>
+                  <input
+                    type="file"
+                    class="edit-btn"
+                    href="javascript:void(0)"
+                    (change)="
+                      handleFileInput($event.target.files, 'rejection', data.id)
+                    "
+                  />
+                </div>
+
+                <div class="choose_file">
+                  <button type="button" class="btn bt-sm btn-default file-btn">
+                    No Quote
+                  </button>
+                  <input
+                    type="file"
+                    class="edit-btn"
+                    href="javascript:void(0)"
+                    (change)="
+                      handleFileInput($event.target.files, 'noQuote', data.id)
+                    "
+                  />
+                </div>
+
+                <div class="choose_file">
+                  <button type="button" class="btn bt-sm btn-default file-btn">
+                    Bid Result
+                  </button>
+                  <input
+                    type="file"
+                    class="edit-btn"
+                    href="javascript:void(0)"
+                    (change)="
+                      handleFileInput($event.target.files, 'bidResult', data.id)
+                    "
+                  />
+                </div>
+              </div>
+            </div>
+          </td>
+        </ng-container>
+
+        <ng-container *ngIf="!show">
+          <td>
+            <a
+              target="_blank"
+              title="{{ data.result_rec }}"
+              *ngIf="data.result_rec != '' && data.result_rec != null"
+              href="{{ uploadUrl }}{{ data.result_rec }}"
+              >Result Rec</a
+            >
+          </td>
+          <td>
+            <a
+              target="_blank"
+              title="{{ data.result_sent }}"
+              *ngIf="data.result_sent != '' && data.result_sent != null"
+              href="{{ uploadUrl }}{{ data.result_sent }}"
+              >Result Sent</a
+            >
+          </td>
+        </ng-container>
+
+        <td>
+          <a
+            target="_blank"
+            title="{{ data.rejection_file_ut }}"
+            *ngIf="data.rejection_link != ''"
+            href="{{ uploadUrl }}{{ data.rejection_link }}"
+            >Rejection File</a
+          >
+          <span *ngIf="data.rejection_link != '' && data.noquote_link != ''">
+            /
+          </span>
+          <a
+            target="_blank"
+            title="{{ data.noQoute_file_ut }}"
+            *ngIf="data.noquote_link != ''"
+            href="{{ uploadUrl }}{{ data.noquote_link }}"
+            >RFQ File</a
+          >
+          <span
+            *ngIf="
+              (data.rejection_link != '' || data.noquote_link != '') &&
+              data.bidResult_link
+            "
+          >
+            /
+          </span>
+          <a
+            target="_blank"
+            title="{{ data.bidResult_file_ut }}"
+            *ngIf="data.bidResult_link != ''"
+            href="{{ uploadUrl }}{{ data.bidResult_link }}"
+            >Bid Result File</a
+          >
+          <span
+            *ngIf="
+              (data.rejection_link != '' ||
+                data.noquote_link != '' ||
+                data.bidResult_link != '') &&
+              data.rfi_link
+            "
+          >
+            /
+          </span>
+          <a
+            target="_blank"
+            title="{{ data.rfi_file_ut }}"
+            *ngIf="data.rfi_link != ''"
+            href="{{ uploadUrl }}{{ data.rfi_link }}"
+            >RFI File</a
+          >
+        </td>
+
+        <ng-container *ngIf="show">
+          <td>
+            <a
+              target="_blank"
+              title="{{ data.result_rec }}"
+              *ngIf="data.result_rec != '' && data.result_rec != null"
+              href="{{ uploadUrl }}{{ data.result_rec }}"
+              >Result Rec</a
+            >
+          </td>
+          <td>
+            <a
+              target="_blank"
+              title="{{ data.result_sent }}"
+              *ngIf="data.result_sent != '' && data.result_sent != null"
+              href="{{ uploadUrl }}{{ data.result_sent }}"
+              >Result Sent</a
+            >
+          </td>
+        </ng-container>
+
+        <ng-container *ngIf="show">
+          <!-- <td>{{data.WJ}}</td>
                     <td>{{data.ZB}}</td> -->
 
-                    <td class="menu-column" *ngIf="show" >
-                        <div class="dropdown">
-                            <button class="btn btn-sm btn-secondary dropdown-toggle menu-btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Upload
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    
-                                <div class="choose_file">
-                                    <button type="button" class="btn bt-sm btn-default file-btn">Result Rec From Buyer</button>
-                                    <input type="file" class='edit-btn' href="javascript:void(0)" (change)="handleFileInput($event.target.files, 'resultRec', data.id)" />
-                                </div>
-                                
-                                <div class="choose_file">
-                                    <button type="button" class="btn bt-sm btn-default file-btn">Result Send to vendor</button>
-                                    <input type="file" class='edit-btn' href="javascript:void(0)" (change)="handleFileInput($event.target.files, 'resultSent', data.id)" />
-                                </div>
-    
-                                <div class="choose_file">
-                                    <button type="button" class="btn bt-sm btn-default file-btn">Zipped Folder</button>
-                                    <input type="file" class='edit-btn' href="javascript:void(0)" accept=".zip,.rar"  (change)="handleFileInput($event.target.files, 'zip', data.id)" />
-                                </div>                                
-            
-                                <div class="choose_file">
-                                    <button type="button" class="btn bt-sm btn-default file-btn">RFI</button>
-                                    <input type="file" class='edit-btn' href="javascript:void(0)" (change)="handleFileInput($event.target.files, 'rfi', data.id)" />
-                                </div>
-            
-                                <div class="choose_file">
-                                    <button type="button" class="btn bt-sm btn-default file-btn">Rejection</button>
-                                    <input type="file" class='edit-btn' href="javascript:void(0)" (change)="handleFileInput($event.target.files, 'rejection', data.id)"  />
-                                </div>
-            
-                                <div class="choose_file">
-                                    <button type="button" class="btn bt-sm btn-defaulft file-btn">No Quote</button>
-                                    <input type="file" class='edit-btn' href="javascript:void(0)" (change)="handleFileInput($event.target.files, 'noQuote', data.id)" />
-                                </div>
-            
-                                <div class="choose_file">
-                                    <button type="button" class="btn bt-sm btn-default file-btn">Bid Result</button>
-                                    <input type="file" class='edit-btn' href="javascript:void(0)" (change)="handleFileInput($event.target.files, 'bidResult', data.id)" />
-                                </div>
-                            </div>
-                            </div>
-                         </td>
+          <td class="menu-column" *ngIf="show">
+            <div class="dropdown">
+              <button
+                class="btn btn-sm btn-secondary dropdown-toggle menu-btn"
+                type="button"
+                id="dropdownMenuButton"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Upload
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <div class="choose_file">
+                  <button type="button" class="btn bt-sm btn-default file-btn">
+                    Result Rec From Buyer
+                  </button>
+                  <input
+                    type="file"
+                    class="edit-btn"
+                    href="javascript:void(0)"
+                    (change)="
+                      handleFileInput($event.target.files, 'resultRec', data.id)
+                    "
+                  />
+                </div>
 
-                    <td>
-                        <div (click)="toggleStatus(data.id, data.status, i)" class="status-div" [ngClass]="data.status == 'yes' ? 'fill-status' : 'empty-status' " ></div>      
-                    </td>
-                    <td class="menu-column"> 
-                        <a class='delete-btn' href="javascript:void(0)" (click)="deleteProject(data.id, i)" ><span title="Delete" class='fa fa-trash fa-lg'></span></a>
-                        <a class='edit-btn' href="javascript:void(0)"  data-toggle="modal" data-target="#editModal" (click)="openEditModal(data.id, i)" ><span title="Edit" class='fa fa-pencil fa-lg'></span></a>
-                    </td>
-                </ng-container> 
+                <div class="choose_file">
+                  <button type="button" class="btn bt-sm btn-default file-btn">
+                    Result Send to vendor
+                  </button>
+                  <input
+                    type="file"
+                    class="edit-btn"
+                    href="javascript:void(0)"
+                    (change)="
+                      handleFileInput(
+                        $event.target.files,
+                        'resultSent',
+                        data.id
+                      )
+                    "
+                  />
+                </div>
 
-                
-            </ng-container>  
-                       
-        </tr>      
-      </table>
-      <app-edit-modal [updateData]="updateData" ></app-edit-modal>      
+                <div class="choose_file">
+                  <button type="button" class="btn bt-sm btn-default file-btn">
+                    Zipped Folder
+                  </button>
+                  <input
+                    type="file"
+                    class="edit-btn"
+                    href="javascript:void(0)"
+                    accept=".zip,.rar"
+                    (change)="
+                      handleFileInput($event.target.files, 'zip', data.id)
+                    "
+                  />
+                </div>
+
+                <div class="choose_file">
+                  <button type="button" class="btn bt-sm btn-default file-btn">
+                    RFI
+                  </button>
+                  <input
+                    type="file"
+                    class="edit-btn"
+                    href="javascript:void(0)"
+                    (change)="
+                      handleFileInput($event.target.files, 'rfi', data.id)
+                    "
+                  />
+                </div>
+
+                <div class="choose_file">
+                  <button type="button" class="btn bt-sm btn-default file-btn">
+                    Rejection
+                  </button>
+                  <input
+                    type="file"
+                    class="edit-btn"
+                    href="javascript:void(0)"
+                    (change)="
+                      handleFileInput($event.target.files, 'rejection', data.id)
+                    "
+                  />
+                </div>
+
+                <div class="choose_file">
+                  <button type="button" class="btn bt-sm btn-defaulft file-btn">
+                    No Quote
+                  </button>
+                  <input
+                    type="file"
+                    class="edit-btn"
+                    href="javascript:void(0)"
+                    (change)="
+                      handleFileInput($event.target.files, 'noQuote', data.id)
+                    "
+                  />
+                </div>
+
+                <div class="choose_file">
+                  <button type="button" class="btn bt-sm btn-default file-btn">
+                    Bid Result
+                  </button>
+                  <input
+                    type="file"
+                    class="edit-btn"
+                    href="javascript:void(0)"
+                    (change)="
+                      handleFileInput($event.target.files, 'bidResult', data.id)
+                    "
+                  />
+                </div>
+              </div>
+            </div>
+          </td>
+
+          <td>
+            <div
+              (click)="toggleStatus(data.id, data.status, i)"
+              class="status-div"
+              [ngClass]="data.status == 'yes' ? 'fill-status' : 'empty-status'"
+            ></div>
+          </td>
+          <td class="menu-column">
+            <a
+              class="delete-btn"
+              href="javascript:void(0)"
+              (click)="deleteProject(data.id, i)"
+              ><span title="Delete" class="fa fa-trash fa-lg"></span
+            ></a>
+            <a
+              class="edit-btn"
+              href="javascript:void(0)"
+              data-toggle="modal"
+              data-target="#editModal"
+              (click)="openEditModal(data.id, i)"
+              ><span title="Edit" class="fa fa-pencil fa-lg"></span
+            ></a>
+          </td>
+        </ng-container>
+      </ng-container>
+    </tr>
+  </table>
+  <app-edit-modal [updateData]="updateData"></app-edit-modal>
 </ng-container>
-

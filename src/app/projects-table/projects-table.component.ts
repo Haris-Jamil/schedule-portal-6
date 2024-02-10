@@ -1,15 +1,23 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
-import { ProjectService } from '../service/project.service';
-import { Project } from '../add-new-modal/project';
-import { LoginService } from '../service/login.service';
-import { Rejection } from '../add-rejection-modal/rejection';
-import { RejectionService } from '../service/rejection.service';
-import { TypeService } from '../service/type.service';
+import {
+  Component,
+  OnInit,
+  Input,
+  OnChanges,
+  SimpleChanges,
+  Output,
+  EventEmitter,
+} from "@angular/core";
+import { ProjectService } from "../service/project.service";
+import { Project } from "../add-new-modal/project";
+import { LoginService } from "../service/login.service";
+import { Rejection } from "../add-rejection-modal/rejection";
+import { RejectionService } from "../service/rejection.service";
+import { TypeService } from "../service/type.service";
 
 @Component({
-  selector: 'app-projects-table',
-  templateUrl: './projects-table.component.html',
-  styleUrls: ['./projects-table.component.css']
+  selector: "app-projects-table",
+  templateUrl: "./projects-table.component.html",
+  styleUrls: ["./projects-table.component.css"],
 })
 export class ProjectsTableComponent implements OnInit, OnChanges {
   show: boolean;
@@ -17,132 +25,151 @@ export class ProjectsTableComponent implements OnInit, OnChanges {
   updateData: any;
   @Output() rejectionMarked: EventEmitter<number> = new EventEmitter<number>();
 
-  private uploadUrl: string = 'http://tii-usa.com/scheduletii/';
+  private uploadUrl: string = "http://tii-usa.com/scheduletii/";
   file: File = null;
-  dateSort = 'asc';
+  dateSort = "asc";
   rejectionMode: boolean = false;
   refreshSignal: number;
   userTypes: any[] = [];
   currentUser: string;
 
-  constructor(private projectService: ProjectService, 
-              private loginService: LoginService,
-              private rejectionService: RejectionService,
-              private typeService: TypeService ) {}
+  constructor(
+    private projectService: ProjectService,
+    private loginService: LoginService,
+    private rejectionService: RejectionService,
+    private typeService: TypeService
+  ) {}
 
   ngOnInit() {
-    if (window['rejectionMode']) {
+    if (window["rejectionMode"]) {
       this.rejectionMode = true;
       this.updateData = new Rejection();
     } else {
       this.updateData = new Project();
     }
     this.show = !this.loginService.isVisitor();
-    const userId = localStorage.getItem('userId-p6');
-    this.currentUser = localStorage.getItem('user-p6');
-    this.typeService.getUserTypes(userId).subscribe( (resp: any[]) => {
-      this.userTypes = resp.map( ut => ut.title );
+    const userId = localStorage.getItem("userId-p6");
+    this.currentUser = localStorage.getItem("user-p6");
+    this.typeService.getUserTypes(userId).subscribe((resp: any[]) => {
+      this.userTypes = resp.map((ut) => ut.title);
     });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     this.projectsData = changes.projectsData.currentValue;
-    this.projectsData = this.projectsData.filter( (data) => {
-      return (this.userTypes.includes(data.ptype) || this.currentUser === 'admin');
+    this.projectsData = this.projectsData.filter((data) => {
+      return (
+        this.userTypes.includes(data.ptype) || this.currentUser === "admin"
+      );
     });
   }
 
-  toggleStatus(id: number, status: string, index: number): void {        
-    const newStatus = status == 'yes' ? 'no' : 'yes';
-    this.projectService.toggleStatus(id, newStatus )
-      .subscribe( (response) => {
-        this.projectsData[index].status = newStatus;    
-      }, (error) => {
+  toggleStatus(id: number, status: string, index: number): void {
+    const newStatus = status == "yes" ? "no" : "yes";
+    this.projectService.toggleStatus(id, newStatus).subscribe(
+      (response) => {
+        this.projectsData[index].status = newStatus;
+      },
+      (error) => {
         console.error(error);
-      });
+      }
+    );
   }
 
-  toggleSort(){
-    const sortedData = this.projectsData.sort( (a, b) => {
-      let d1 = a.submit_by_year + this.appendZero(a.submit_by_month) + this.appendZero(a.submit_by_day);
-      let d2 = b.submit_by_year + this.appendZero(b.submit_by_month) + this.appendZero(b.submit_by_day);      
+  toggleSort() {
+    const sortedData = this.projectsData.sort((a, b) => {
+      let d1 =
+        a.submit_by_year +
+        this.appendZero(a.submit_by_month) +
+        this.appendZero(a.submit_by_day);
+      let d2 =
+        b.submit_by_year +
+        this.appendZero(b.submit_by_month) +
+        this.appendZero(b.submit_by_day);
       return d1.localeCompare(d2);
-    })
-    if(this.dateSort === 'asc'){
+    });
+    if (this.dateSort === "asc") {
       this.projectsData = sortedData.reverse();
-      this.dateSort = 'des';
+      this.dateSort = "des";
     } else {
       this.projectsData = sortedData;
-      this.dateSort = 'asc';
+      this.dateSort = "asc";
     }
   }
-  
-  appendZero(number: string){
-    return number.length == 1 ? '0' + number : number;
+
+  appendZero(number: string) {
+    return number.length == 1 ? "0" + number : number;
   }
 
-  deleteProject(id: number, index: number): void{
-    if( confirm('Are you sure you want to delete this project?') ) {
-      this.projectService.deleteProject(id)
-      .subscribe( () => {
-        console.log(this.projectsData);
-        console.log(index);
-        this.projectsData.splice(index, 1);
-      }, (error) => {
-        console.log(error);
-      });
-    }    
+  deleteProject(id: number, index: number): void {
+    if (confirm("Are you sure you want to delete this project?")) {
+      this.projectService.deleteProject(id).subscribe(
+        () => {
+          console.log(this.projectsData);
+          console.log(index);
+          this.projectsData.splice(index, 1);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    }
   }
 
-  deleteRejection(id: number, index: number): void{
-    if( confirm('Are you sure you want to delete this rejction?') ) {
-      this.rejectionService.deleteRejection(id)
-      .subscribe( () => {
-        this.projectsData.splice(index, 1);
-      }, (error) => {
-        console.log(error);
-      });
-    }    
+  deleteRejection(id: number, index: number): void {
+    if (confirm("Are you sure you want to delete this rejction?")) {
+      this.rejectionService.deleteRejection(id).subscribe(
+        () => {
+          this.projectsData.splice(index, 1);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    }
   }
 
   getColor(status: string): string {
-    switch(status) {
-      case 'error':
-        return 'table-danger'
-      case 'done':
-        return 'table-success'       
-      case 'verified':
-        return 'table-warning' 
+    switch (status) {
+      case "error":
+        return "table-danger";
+      case "done":
+        return "table-success";
+      case "verified":
+        return "table-warning";
     }
   }
 
   markRejection(id: number, status: string, index: number): void {
-    this.rejectionService.changeStatus(id, status )
-      .subscribe( (response) => {
-        this.projectsData[index].status = status;            
+    this.rejectionService.changeStatus(id, status).subscribe(
+      (response) => {
+        this.projectsData[index].status = status;
         this.refreshSignal = this.refreshSignal == 0 ? 1 : 0;
-        this.rejectionMarked.emit(this.refreshSignal);        
-      }, (error) => {
+        this.rejectionMarked.emit(this.refreshSignal);
+      },
+      (error) => {
         console.error(error);
-      });
-  }
-  
-  openEditModal(id: number, index: number, eve): void{
-    this.updateData = {...this.projectsData[index]};
+      }
+    );
   }
 
-  handleFileInput(files: FileList, type: string, id: any){
-    let formData = new FormData(); 
-    this.file = files.item(0);          
-    formData.append('uploadedfile', this.file, this.file.name);   
-    formData.append('id', id);
-    formData.append('file_type', type);
-    this.projectService.updateFile(formData)
-    .subscribe( (response) => {
-      console.log(response);
-    }, (err) => {
-      console.error(err);
-    });
-  }  
+  openEditModal(id: number, index: number, eve): void {
+    this.updateData = { ...this.projectsData[index] };
+  }
 
+  handleFileInput(files: FileList, type: string, id: any) {
+    let formData = new FormData();
+    this.file = files.item(0);
+    formData.append("uploadedfile", this.file, this.file.name);
+    formData.append("id", id);
+    formData.append("file_type", type);
+    this.projectService.updateFile(formData).subscribe(
+      (response) => {
+        console.log(response);
+      },
+      (err) => {
+        console.error(err);
+      }
+    );
+  }
 }
