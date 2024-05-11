@@ -50,4 +50,8 @@ export class RejectionService {
   deleteRejectionFile(id) {
     return this.http.get(`${this.baseURL}addRejectionFile.php?id=${id}`);
   }
+
+  deleteRejectionAndRfiFile(id) {
+    return this.http.get(`${this.baseURL}deleteRfiAndRejectionFile.php?id=${id}`);
+  }
 }

@@ -146,6 +146,14 @@
           </label>
         </div>  
       </div>
+
+      <div *ngIf='show'>
+        <div class="form-check-inline">
+          <label class="form-check-label">
+            <input (change)="applyFilter(dataToFilter)" [(ngModel)]="awarded" type="checkbox" class="form-check-input" value="">Awarded
+          </label>
+        </div>
+      </div>
       
     
     </div>

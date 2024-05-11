@@ -22,6 +22,7 @@ export class EditModalComponent implements OnInit, OnChanges {
   quoteRec: number = 0;
   loading: boolean = false;
   loadingRejectionDlt: boolean = false;
+  loadingRejectionRfiDlt: boolean = false;
   loadingCopy: boolean = false;
 
   msgType: string;
@@ -216,6 +217,21 @@ export class EditModalComponent implements OnInit, OnChanges {
         $('#editModal').modal('toggle');
       } else {
         this.loadingRejectionDlt = false;
+        this.notify('danger', 'Some Error occured');
+      }
+    } );
+  }
+
+  deleteRejectionRfiFile() {
+    this.loadingRejectionRfiDlt = true;
+    this.rejectionService.deleteRejectionAndRfiFile(this.updateData.id).subscribe( (resp) => {
+      if(resp == 1){
+        this.projectService.emitDataChange();
+        this.loadingRejectionRfiDlt = false;
+        this.notify('success', 'Files deleted');
+        $('#editModal').modal('toggle');
+      } else {
+        this.loadingRejectionRfiDlt = false;
         this.notify('danger', 'Some Error occured');
       }
     } );

@@ -153,39 +153,24 @@
             </div>
             <div class="form-check-inline">
               <label class="form-check-label">
-                <input  type="radio" [(ngModel)]="to" value="SD" class="form-check-input" name="toRadio">SD
+                <input  type="radio" [(ngModel)]="to" value="SF" class="form-check-input" name="toRadio">SF
               </label>
             </div>
             <div class="form-check-inline">
               <label class="form-check-label">
-                <input type="radio" [(ngModel)]="to" value="SF" class="form-check-input" name="toRadio">SF
+                <input type="radio" [(ngModel)]="to" value="AR" class="form-check-input" name="toRadio">AR
               </label>
             </div>
             <div class="form-check-inline">
               <label class="form-check-label">
-                <input  type="radio" [(ngModel)]="to" value="NV" class="form-check-input" name="toRadio">NV
+                <input  type="radio" [(ngModel)]="to" value="CL" class="form-check-input" name="toRadio">CL
               </label>
             </div>
             <div class="form-check-inline">
                 <label class="form-check-label">
-                  <input  type="radio" [(ngModel)]="to" value="BR" class="form-check-input" name="toRadio">BR
+                  <input  type="radio" [(ngModel)]="to" value="AT" class="form-check-input" name="toRadio">AT
                 </label>
-            </div>
-            <div class="form-check-inline">
-              <label class="form-check-label">
-                <input  type="radio" [(ngModel)]="to" value="SR" class="form-check-input" name="toRadio">SR
-              </label>
-            </div>
-            <div class="form-check-inline">
-              <label class="form-check-label">
-                <input  type="radio" [(ngModel)]="to" value="AR" class="form-check-input" name="toRadio">AR
-              </label>
-            </div>
-            <div class="form-check-inline">
-              <label class="form-check-label">
-                <input  type="radio" [(ngModel)]="to" value="AT" class="form-check-input" name="toRadio">AT
-              </label>
-            </div>
+            </div>            
           </div>
           <br>
 
@@ -274,6 +259,9 @@
 
       <div class="modal-footer">
         <button *ngIf='showMsg' disabled type="button" class="btn btn-sm btn-{{msgType}}" >{{msg}}</button>
+        <button type="button" (click)="deleteRejectionRfiFile()" class="btn btn-success" >
+          <span *ngIf="loadingRejectionRfiDlt" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Delete Rejection & RFI File
+        </button>
         <button type="button" (click)="editProject()" class="btn btn-success" >
           <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Edit Project
         </button>

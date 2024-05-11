@@ -47,6 +47,8 @@ export class FilterComponent implements OnInit, OnChanges {
   fboNature: boolean = false;
   stateNature: boolean = false;
 
+  awarded: boolean = false;
+
   constructor(private loginService: LoginService){      
   }
 
@@ -86,6 +88,7 @@ export class FilterComponent implements OnInit, OnChanges {
            (this.verified ? (d.status == "" ? false : d.status === 'verified') : true ) &&
            (this.fboNature ? (d.nature.toUpperCase() == "fbo".toUpperCase()) : true  ) &&
            (this.stateNature ? (d.nature.toUpperCase() == "state".toUpperCase()) : true  ) &&
+           (this.awarded ? ( d.awarded === "yes" ) : true) &&
            (this.active ? ((d.status == null || d.status == "yes") && (d.submitted == null || d.submitted == "") && d.rfi_link == "" ) : true)
     )
     this.dataFiltered.emit(this.filteredData);
