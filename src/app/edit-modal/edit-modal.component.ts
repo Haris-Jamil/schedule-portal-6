@@ -185,7 +185,7 @@ export class EditModalComponent implements OnInit, OnChanges {
   }
 
   getradioValue(name: string): string{
-    let radio: any = (<any>document.querySelector(`input[name="${name}"]:checked`));
+    let radio: any = (<any>document.querySelector(`#editModal input[name="${name}"]:checked`));
     return radio ? radio.value : '';
   }
 
