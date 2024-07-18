@@ -16,22 +16,25 @@ export class ProjectCountModalComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.data = changes.data.currentValue;    
-    this.operatorProjectDiff = [];
-    let allData: any = Object.keys(this.data);
-    for(let d in allData){
-      const code = allData[d];
-      if(code.indexOf('Found') == -1 ){
-        let diff = this.data[code+'Found'] - this.data[code];
-        if(diff != 0){
-          const obj = {
-            'operator': code,
-            'count':  (diff > 0 ? "+" : "" ) + (diff).toString()
-          };
-          this.operatorProjectDiff.push(obj);
-        }       
+    this.data = changes.data.currentValue;  
+    if (this.data) {
+      this.operatorProjectDiff = [];
+      let allData: any = Object.keys(this.data);
+      for(let d in allData){
+        const code = allData[d];
+        if(code.indexOf('Found') == -1 ){
+          let diff = this.data[code+'Found'] - this.data[code];
+          if(diff != 0){
+            const obj = {
+              'operator': code,
+              'count':  (diff > 0 ? "+" : "" ) + (diff).toString()
+            };
+            this.operatorProjectDiff.push(obj);
+          }       
+        }
       }
-    }
+    }  
+    
   }
 
 }

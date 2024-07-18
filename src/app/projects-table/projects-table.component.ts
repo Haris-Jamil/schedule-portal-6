@@ -59,9 +59,10 @@ export class ProjectsTableComponent implements OnInit, OnChanges {
     this.projectsData = changes.projectsData.currentValue;
     this.projectsData = this.projectsData.filter((data) => {
       return (
-        this.userTypes.includes(data.ptype) || this.currentUser === "admin"
+        this.currentUser === data.code || this.currentUser === "admin"
       );
     });
+    console.log('this.projectsData', this.projectsData);
   }
 
   toggleStatus(id: number, status: string, index: number): void {
