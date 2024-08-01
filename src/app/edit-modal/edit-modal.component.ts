@@ -159,7 +159,11 @@ export class EditModalComponent implements OnInit, OnChanges {
       'refnum': this.updateData.refnum,
       'type': this.updateData.ptype,
       'code': this.updateData.code,
-      'awarded': this.awarded
+      'awarded': this.awarded,
+      'submitByHour': this.updateData.submit_by_hour,
+      'submitByMinute': this.updateData.submit_by_minute,
+      'meridiem': this.updateData.meridiem,
+      'timeZone': this.updateData.timeZone
     }
 
     for(let key in editObj)

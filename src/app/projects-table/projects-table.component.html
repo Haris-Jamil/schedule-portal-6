@@ -104,7 +104,7 @@
           }}
         </td>
         <td>
-          {{ data.submit_by_hour }}:{{ data.submit_by_minute }}
+          {{ data.submit_by_hour }}:{{ data.submit_by_minute == '0' ? '00' : data.submit_by_minute }}
           {{ data.meridiem }} {{ data.timeZone }}
         </td>
         <td title="{{ data.project_added }}">
