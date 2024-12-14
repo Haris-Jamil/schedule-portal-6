@@ -41,7 +41,7 @@ export class EditModalComponent implements OnInit, OnChanges {
     'NV': false,
     'BR': false,
     'SR': false,
-    'AH': false
+    'JN': false
   };
   
   constructor(private projectService: ProjectService, private typeService: TypeService, private rejectionService: RejectionService) { }
@@ -71,7 +71,7 @@ export class EditModalComponent implements OnInit, OnChanges {
       'NV': false,
       'BR': false,
       'SR': false,
-      'AH': false
+      'JN': false
     };
   }
 
