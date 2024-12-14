@@ -68,14 +68,6 @@
           </div>
           <br>
 
-          <label><b>Project Type:</b></label>
-          <div class="form-inline form-row" >
-            <select name="ptype" class="form-control form-control-sm" [(ngModel)]="updateData.ptype">
-              <option *ngFor="let t of types" value="{{t.title}}" >{{t.title}}</option>
-            </select>
-          </div>
-          <br>
-
           <label><b>Type of bid:</b></label>
           <div class="form-inline form-row" >
             <div class="form-check-inline">
@@ -196,7 +188,12 @@
                 <label class="form-check-label">
                   <input  type="radio" [(ngModel)]="to" value="AT" class="form-check-input" name="toRadio">AT
                 </label>
-            </div>            
+            </div>   
+            <div class="form-check-inline">
+              <label class="form-check-label">
+                <input  type="radio" [(ngModel)]="to" value="AH" class="form-check-input" name="toRadio">AH
+              </label>
+          </div>         
           </div>
           <br>
 
@@ -241,7 +238,12 @@
               <label class="form-check-label">
                 <input [(ngModel)]="cc.SR" name="SR" type="checkbox" class="form-check-input" value="">SR
               </label>
-          </div>          
+            </div> 
+            <div class="form-check-inline">
+              <label class="form-check-label">
+                <input [(ngModel)]="cc.AH" name="AH" type="checkbox" class="form-check-input" value="">AH
+              </label>
+            </div>         
           </div>
           <br>
 

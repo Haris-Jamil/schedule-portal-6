@@ -13,6 +13,13 @@ export class ProjectService {
   chartApiWins: string = 'https://tii-usa.com/bidscheduler/getChartDataWins.php';
   dataChange = new Subject<any>();
 
+  timeZoneOffsets = {
+    "EST": -5,
+    "CST": -6,
+    "MST": -7,
+    "PST": -8
+  };
+
   constructor(private http: HttpClient) { }
 
   getChartData(data, wins = false) {
@@ -57,5 +64,40 @@ export class ProjectService {
 
   updateFile(data: any){
     return this.http.post(`${this.baseURL}updateFile.php`, data);
+  }
+
+  convertTo24Hour(hour, meridiem) {
+    hour = parseInt(hour);
+    if (meridiem === "PM" && hour !== 12) {
+      return hour + 12;
+    }
+    if (meridiem === "AM" && hour === 12) {
+      return 0; // midnight case
+    }
+    return hour;
+  };
+
+  sortProjectsByTime(data) {
+    const sortedData = data.sort((a, b) => {
+      const hourA = this.convertTo24Hour(a.submit_by_hour, a.meridiem);
+      const hourB = this.convertTo24Hour(b.submit_by_hour, b.meridiem);
+    
+      if (hourA !== hourB) {
+        return hourA - hourB;
+      }
+    
+      const minuteA = parseInt(a.submit_by_minute);
+      const minuteB = parseInt(b.submit_by_minute);
+    
+      if (minuteA !== minuteB) {
+        return minuteA - minuteB;
+      }
+    
+      const timeZoneA = this.timeZoneOffsets[a.timeZone];
+      const timeZoneB = this.timeZoneOffsets[b.timeZone];
+    
+      return timeZoneB - timeZoneA;
+    });
+    return sortedData;
   }
 }

@@ -18,6 +18,7 @@ export class Project{
     epnum: string
     type: string;
     nature: string;
+    projectAddTime: string;
 
     constructor(){
         this.submitByDay = null;
@@ -38,6 +39,7 @@ export class Project{
         this.epnum = null;
         this.type = 'Software';
         this.nature = null;
+        this.projectAddTime = null;
     }
     
 }

@@ -62,8 +62,25 @@ export class AddNewModalComponent implements OnInit {
     return reasons.trim();
   }
 
+  getCurrentPakistanTime(): string {
+    const now = new Date();
+    const options = {
+        timeZone: 'Asia/Karachi',
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: true
+    };
+    const formatter = new Intl.DateTimeFormat('en-US', (options as any));
+    const currentTimeInPKT = formatter.format(now);
+    return currentTimeInPKT;
+  }
+
   addNewProject(){
     this.newProject.reasonNotBidding = this.getReasonForNotBidding();    
+    this.newProject.projectAddTime = this.getCurrentPakistanTime();
     this.formData = new FormData();    
     this.loading = true;
 

@@ -63,15 +63,7 @@
           <div class="form-inline form-row">
               <input [(ngModel)]="newProject.code" name="code" type="text" class="form-control form-control-sm form-input-lg" placeholder="code" >
           </div>
-          <br>
-
-          <label><b>Project Type:</b></label>
-          <div class="form-inline form-row" >
-            <select name="ptype" class="form-control form-control-sm" [(ngModel)]="newProject.type">
-              <option *ngFor="let t of types" value="{{t.title}}" >{{t.title}}</option>
-            </select>
-          </div>
-          <br>
+          <br>     
 
           <label><b>Type of bid:</b></label>
           <div class="form-inline form-row" >
