@@ -21,3 +21,17 @@
     margin-bottom: 15px;
     background-color: aliceblue;
 }
+
+
+.addAwardsContainer {
+    display: flex;
+}
+.awardsContainer .table th{
+    padding: 5px !important;
+    width: 50px !important;
+}
+
+.awardsContainer .table td{
+    padding: 5px !important;
+    width: 50px !important;
+}

@@ -72,9 +72,9 @@
         <!-- <th>WJ</th>
               <th>ZB</th> -->
         <th>Add Files</th>
-        <th>Status</th>
-        <th>Edit</th>
+        <th>Status</th>        
       </ng-container>
+      <th>Edit</th>
       <ng-container *ngIf="!show">
         <th>Files</th>
       </ng-container>
@@ -83,8 +83,7 @@
     <tr
       *ngFor="let data of projectsData; index as i"
       [ngClass]="
-        show
-          ? data.submitted == 'yes' || data.submitted == 'HO'
+        data.submitted == 'yes' || data.submitted == 'HO'
             ? 'table-success'
             : data.submitted == 'no'
             ? 'table-danger'
@@ -93,7 +92,6 @@
             : data.rfi_link != ''
             ? 'table-primary'
             : ''
-          : ''
       "
     >
       <ng-container>
@@ -474,8 +472,10 @@
               [ngClass]="data.status == 'yes' ? 'fill-status' : 'empty-status'"
             ></div>
           </td>
+          </ng-container>
+
           <td class="menu-column">
-            <a
+            <a *ngIf="show"
               class="delete-btn"
               href="javascript:void(0)"
               (click)="deleteProject(data.id, i)"
@@ -490,7 +490,6 @@
               ><span title="Edit" class="fa fa-pencil fa-lg"></span
             ></a>
           </td>
-        </ng-container>
       </ng-container>
     </tr>
   </table>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../service/login.service';
 import { TypeService } from '../service/type.service';
 import { ChangeDetectorRef } from '@angular/core';
+import { ProjectService } from '../service/project.service';
 
 @Component({
   selector: 'app-user-manager-modal',
@@ -18,14 +19,46 @@ export class UserManagerModalComponent implements OnInit {
   editId: any;
   username: string;
   password: string;
+  submissionTarget: number = null;
   newUserSelectedTypes: number[] = [];
   userTypes: number[] = [];
+  awardYear = new Date().getFullYear();
+  newAwardMonth: number = 1;
+  newAwardCount: number = 0;
 
-  constructor(private loginService: LoginService, private typeService: TypeService, private cd: ChangeDetectorRef) { }
+  awardData: any[] = []
+
+   months = [
+    { id: 1, name: 'Jan' },
+    { id: 2, name: 'Feb' },
+    { id: 3, name: 'Mar' },
+    { id: 4, name: 'Apr' },
+    { id: 5, name: 'May' },
+    { id: 6, name: 'Jun' },
+    { id: 7, name: 'Jul' },
+    { id: 8, name: 'Aug' },
+    { id: 9, name: 'Sep' },
+    { id: 10, name: 'Oct' },
+    { id: 11, name: 'Nov' },
+    { id: 12, name: 'Dec' }
+  ]
+
+  constructor(private loginService: LoginService, private typeService: TypeService, private cd: ChangeDetectorRef, private service: ProjectService) { }
 
   ngOnInit() {
     this.getUsers();
     this.getAllTypes();
+  }
+
+  
+  getMonthName(id: number) {
+    return this.months.find( month => month.id == id ).name;
+  }
+
+  yearSelectionChange(event){    
+    this.service.getAwardCounts(this.username, this.awardYear).subscribe( (resp: any[]) => {
+      this.awardData = resp
+    });
   }
 
   getUsers() {
@@ -34,6 +67,13 @@ export class UserManagerModalComponent implements OnInit {
         this.users = data;
       }
     );
+  }
+
+  addAwardCount() {
+    this.service.addAwardCount(this.username, this.awardYear, this.newAwardMonth, this.newAwardCount).subscribe( (resp) => {
+      console.log(resp);
+      this.yearSelectionChange(null);
+    });
   }
 
   addTypeToUser(id) {
@@ -87,9 +127,11 @@ export class UserManagerModalComponent implements OnInit {
       this.userTypes = resp.map( t => t.type_id );
       this.username = this.users[index].login;
       this.password = this.users[index].password;
+      this.submissionTarget = this.users[index].submissionTarget;
       this.editId = this.users[index].id;
       this.showForm = true;
       this.mode = false;
+      this.yearSelectionChange(null);
       this.cd.detectChanges();
     });    
   }
@@ -101,18 +143,19 @@ export class UserManagerModalComponent implements OnInit {
   resetForm() {
     this.showForm = true;
     this.mode = true;
-    this.username = this.password = ''
+    this.username = this.password = '';
+    this.submissionTarget = null;
   }
 
   performAction() {
     if (this.mode) {
       const types = this.newUserSelectedTypes.join(',');
-      this.loginService.addUser(this.username, this.password, types).subscribe( (resp) => {
+      this.loginService.addUser(this.username, this.password, types, this.submissionTarget).subscribe( (resp) => {
         if (resp == 1 ) this.getUsers();
       });
     } else {
       const types = this.userTypes.join(',');
-      this.loginService.updateUser(this.editId, this.username, this.password, types).subscribe ( (resp) => {
+      this.loginService.updateUser(this.editId, this.username, this.password, types, this.submissionTarget).subscribe ( (resp) => {
         console.log(resp);
         if (resp == 1 ) this.getUsers();
       });

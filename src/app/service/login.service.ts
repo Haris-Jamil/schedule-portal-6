@@ -54,12 +54,13 @@ export class LoginService {
     return this.http.get(`${this.baseURL}getUsers.php`);
   }
 
-  addUser(username: string, password: string, types: string) {
+  addUser(username: string, password: string, types: string, submissionTarget: number) {
 
     let userData = new FormData();
     userData.append('username', username);
     userData.append('password', password);
     userData.append('types', types);
+    userData.append('submissionTarget', submissionTarget ? submissionTarget.toString() : null);
 
     return this.http.post(`${this.baseURL}addUser.php`, userData);
   }
@@ -68,13 +69,14 @@ export class LoginService {
     return this.http.get(`${this.baseURL}deleteUser.php?id=${id}`);
   }
 
-  updateUser(id: any, username: string, password: string, types: string) {
+  updateUser(id: any, username: string, password: string, types: string, submissionTarget: number) {
 
     let userData = new FormData();
     userData.append('id', id);
     userData.append('username', username);
     userData.append('password', password);
     userData.append('types', types);
+    userData.append('submissionTarget', submissionTarget ? submissionTarget.toString() : '');
 
     return this.http.post(`${this.baseURL}updateUser.php`, userData);
   }

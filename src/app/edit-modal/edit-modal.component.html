@@ -8,7 +8,7 @@
       </div>
       
       <div class="modal-body">
-        <form>
+        <form *ngIf="!isOperator">
 
           <label><b>Submit by:</b></label>
           <div class="form-inline form-row" >
@@ -121,36 +121,6 @@
             </div>            
           </div>
           <br>
-
-          <!-- <label><b>Wajahat Remarks:</b></label>
-          <div class="form-inline form-row" >
-            <div class="form-check-inline">
-              <label class="form-check-label">
-                <input type="radio" [(ngModel)]="wRemarks" value="YES" class="form-check-input" name="wRadio">Valid
-              </label>
-            </div>
-            <div class="form-check-inline">
-              <label class="form-check-label">
-                <input type="radio" [(ngModel)]="wRemarks" value="NO" class="form-check-input" name="wRadio">Invalid
-              </label>
-            </div>            
-          </div>
-          <br>
-
-          <label><b>Zohaib Remarks:</b></label>
-          <div class="form-inline form-row" >
-            <div class="form-check-inline">
-              <label class="form-check-label">
-                <input type="radio" [(ngModel)]="zRemarks" value="YES" class="form-check-input" name="zRadio">Valid
-              </label>
-            </div>
-            <div class="form-check-inline">
-              <label class="form-check-label">
-                <input  type="radio" [(ngModel)]="zRemarks" value="NO" class="form-check-input" name="zRadio">Invalid
-              </label>
-            </div>            
-          </div>
-          <br> -->
 
           <label><b>To:</b></label>
           <div class="form-inline form-row" >
@@ -288,20 +258,94 @@
           
         </form>
 
+        <form *ngIf="isOperator" >
+          <div class="form-inline form-row" >
+            <select [(ngModel)]="updateData.submit_by_hour" name="submitByHour" class="form-control form-control-sm form-input-sm" >
+              <option *ngFor="let n of [1,2,3,4,5,6,7,8,9,10,11,12]" value="{{n}}" >{{n}}</option>
+            </select>           
+
+            <select [(ngModel)]="updateData.submit_by_minute" name="submitByMin" class="form-control form-control-sm form-input-sm">
+              <option value='0' >00</option>
+              <option value='15'>15</option>
+              <option value='30'>30</option>
+              <option value='45'>45</option>
+            </select>
+
+            <select [(ngModel)]="updateData.meridiem" name="submitByMeridiem" class="form-control form-control-sm form-input-sm">
+              <option value='AM'>AM</option>
+              <option value='PM'>PM</option>             
+            </select>
+
+            <select [(ngModel)]="updateData.timeZone" name="submitByTimeZone" class="form-control form-control-sm form-input">
+              <option value='PST'>Pacific</option>
+              <option value='MST'>Mountain</option>             
+              <option value='CST'>Central</option>             
+              <option value='EST'>Eastern</option>
+              <option value='Local'>Local</option>
+            </select>
+          </div>
+          
+          <label><b>Type of bid:</b></label>
+          <div class="form-inline form-row" >
+            <div class="form-check-inline">
+              <label class="form-check-label">
+                <input [(ngModel)]="typeOfBid" value="sealed" type="radio" class="form-check-input" name="optradio">Sealed
+              </label>
+            </div>
+            <div class="form-check-inline">
+              <label class="form-check-label">
+                <input [(ngModel)]="typeOfBid" value="online"  type="radio" class="form-check-input" name="optradio">Online
+              </label>
+            </div>
+            <div class="form-check-inline disabled">
+              <label class="form-check-label">
+                <input [(ngModel)]="typeOfBid" value="email"  type="radio" class="form-check-input" name="optradio">Email
+              </label>
+            </div>
+            <div class="form-check-inline">
+                <label class="form-check-label">
+                  <input [(ngModel)]="typeOfBid" value="fax" type="radio" class="form-check-input" name="optradio">Fax
+                </label>
+              </div>
+              <div class="form-check-inline disabled">
+                <label class="form-check-label">
+                  <input [(ngModel)]="typeOfBid" value="NES&SEPTA"  type="radio" class="form-check-input" name="optradio">NES & SEPTA
+                </label>
+              </div>
+          </div>
+          <br>       
+
+          <label><b>Nature of bid:</b></label>
+          <div class="form-inline form-row" >
+            <div class="form-check-inline">
+              <label class="form-check-label">
+                <input [(ngModel)]="natureOfBid" value="FBO" type="radio" class="form-check-input" name="natureRadio">FBO
+              </label>
+            </div>
+            <div class="form-check-inline">
+              <label class="form-check-label">
+                <input [(ngModel)]="natureOfBid" value="State"  type="radio" class="form-check-input" name="natureRadio">State
+              </label>
+            </div>            
+          </div>
+          <br>
+
+        </form>
+
       </div>
 
       <div class="modal-footer">
         <button *ngIf='showMsg' disabled type="button" class="btn btn-sm btn-{{msgType}}" >{{msg}}</button>
-        <button type="button" (click)="deleteRejectionRfiFile()" class="btn btn-success" >
+        <button *ngIf="!isOperator" type="button" (click)="deleteRejectionRfiFile()" class="btn btn-success" >
           <span *ngIf="loadingRejectionRfiDlt" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Delete Rejection & RFI File
         </button>
         <button type="button" (click)="editProject()" class="btn btn-success" >
           <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Edit Project
         </button>
-        <button type="button" (click)="deleteRejectionFile()" class="btn btn-success" >
+        <button *ngIf="!isOperator" type="button" (click)="deleteRejectionFile()" class="btn btn-success" >
           <span *ngIf="loadingRejectionDlt" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Delete Rejection File
         </button>
-        <button type="button" (click)="copyProject()" class="btn btn-success" >
+        <button *ngIf="!isOperator" type="button" (click)="copyProject()" class="btn btn-success" >
           <span *ngIf="loadingCopy" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Copy Project
         </button>
       </div>

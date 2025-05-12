@@ -140,7 +140,7 @@
 
   <br />
   <div class="row">
-    <div class="col-md-9">
+    <div class="col-md-5">
       <div class="form-inline">
         <button
           class="btn btn-primary menu-btn btn-sm"
@@ -196,6 +196,49 @@
         </ng-container>
       </div>
     </div>
+
+    <div class="col-md-4">
+      <ng-container *ngIf="show">
+          <select class="form-control form-control-sm" style="width: 100px;" (change)="userSelected($event)">
+            <option *ngFor="let user of allUsers" value="{{user.login}}">{{user.login}}</option>
+          </select>
+      </ng-container>    
+      <ng-container *ngIf="awardData && awardData.length">
+        <b>{{currentYear}} Awards:</b>
+        <div class="awardsContainer">
+          <table class="table table-bordered" style="color: white;" >
+            <tr class="table-default">
+              <th *ngFor="let award of awardData">{{getMonthName(award.month)}}</th>                   
+            </tr>
+            <tr>
+              <td *ngFor="let award of awardData">{{award.count}}</td> 
+            </tr>
+          </table>
+        </div>          
+      </ng-container>
+    </div>
+  
+  
+
+  <ng-container *ngIf="submissionTarget">
+    <div class="col-md-3">
+      <div class="submissionTargetContainer" >
+          <h5>Submission Target: {{submissionTarget}}</h5>
+          <h5>Your Submissions: {{submissionCount}}</h5>
+          <ng-container *ngIf="!show">
+            <h6 *ngIf="submissionCount < submissionTarget" >You are behind target by {{submissionTarget - submissionCount}} submissions</h6>
+            <h6 *ngIf="submissionCount > submissionTarget" >You are ahead of target by {{submissionCount - submissionTarget}} submissions</h6>
+          </ng-container>
+          
+          <ng-container *ngIf="show">
+            <h6 *ngIf="submissionCount < submissionTarget" >{{user}} is behind target by {{submissionTarget - submissionCount}} submissions</h6>
+            <h6 *ngIf="submissionCount > submissionTarget" >{{user}} is ahead of target by {{submissionCount - submissionTarget}} submissions</h6>
+          </ng-container>
+      </div>
+    </div>
+  </ng-container>
+
+
   </div>
   <br />
 

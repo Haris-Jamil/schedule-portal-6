@@ -100,4 +100,32 @@ export class ProjectService {
     });
     return sortedData;
   }
+
+  getSubmissionTarget(user, month, year) {
+    const formData = new FormData();
+    formData.append('code', user);
+    formData.append('month', month);
+    formData.append('year', year);
+    return this.http.post(`${this.baseURL}getSubmissionTarget.php`, formData);
+  }
+
+  getAwardCounts(user, year) {
+    const formData = new FormData();
+    formData.append('code', user);
+    formData.append('year', year);
+    return this.http.post(`${this.baseURL}getAwardsCount.php`, formData);
+  }
+
+  addAwardCount(user, year, month, count) {
+    const formData = new FormData();
+    formData.append('code', user);
+    formData.append('year', year);
+    formData.append('month', month);
+    formData.append('count', count);
+    return this.http.post(`${this.baseURL}addAwardCount.php`, formData);
+  }
+
+  deleteAwardCount(id) {
+    return this.http.get(`${this.baseURL}deleteAwardCount.php?id=${id}`);
+  }
 }

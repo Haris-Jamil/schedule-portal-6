@@ -33,3 +33,21 @@
 .badge-issue {
     background-color: #e67e22;
 }
+
+
+.submissionTargetContainer {
+    margin-left: 30px;
+}
+
+.addAwardsContainer {
+    display: flex;
+}
+.awardsContainer .table th{
+    padding: 5px !important;
+    width: 50px !important;
+}
+
+.awardsContainer .table td{
+    padding: 5px !important;
+    width: 50px !important;
+}

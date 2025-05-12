@@ -31,6 +31,8 @@ export class MenuComponent implements OnInit, OnChanges {
   projectCount: any;
   show: boolean;
   rejectionMode: boolean = false;
+  user: string;
+  awardData: any[] = [];
   @Input() refreshSignal: number;
 
   errorCount: number = 0;
@@ -38,6 +40,28 @@ export class MenuComponent implements OnInit, OnChanges {
   issueCount: number = 0;
 
   isDataLoading: boolean = false;
+
+  submissionTarget: number = null;
+  submissionCount: number = null;
+
+  months = [
+    { id: 1, name: 'Jan' },
+    { id: 2, name: 'Feb' },
+    { id: 3, name: 'Mar' },
+    { id: 4, name: 'Apr' },
+    { id: 5, name: 'May' },
+    { id: 6, name: 'Jun' },
+    { id: 7, name: 'Jul' },
+    { id: 8, name: 'Aug' },
+    { id: 9, name: 'Sep' },
+    { id: 10, name: 'Oct' },
+    { id: 11, name: 'Nov' },
+    { id: 12, name: 'Dec' }
+  ]
+
+  currentYear: string = '';
+  allUsers: any[] = [];
+
   @Output() dataLoaded: EventEmitter<any[]> = new EventEmitter();
 
   constructor(
@@ -67,6 +91,15 @@ export class MenuComponent implements OnInit, OnChanges {
 
     this.show = !this.loginService.isVisitor();
 
+    if(!this.show) {
+      this.user = this.loginService.getLoggedInUser();
+    }
+    
+    this.loginService.getUsers().subscribe((data: any[]) => {
+      this.allUsers = data
+      console.log(data);
+    })
+
     if (this.rejectionMode) {
       this.rejectionService.getDataChangeEmitter().subscribe(() => {
         this.fetchRejections();
@@ -76,7 +109,43 @@ export class MenuComponent implements OnInit, OnChanges {
         this.fetchProjects();
       });
     }
+
+    if (this.user) {
+      this.loadPerformanceData(this.user);
+    }
   }
+  
+  userSelected(event) {
+    this.user = event.target.value;
+    this.loadPerformanceData(this.user);
+  }
+
+  loadPerformanceData(user) {
+    const date = new Date();    
+    this.projectService.getSubmissionTarget(user, date.getMonth() + 1, date.getFullYear()).subscribe((data: any[]) => {
+      if (data && data.length == 1 && data[0].count && data[0].target) {
+        this.submissionTarget = parseInt(data[0].target);
+        this.submissionCount = parseInt(data[0].count);
+        this.cd.detectChanges();
+      } else {
+        this.submissionTarget = null;
+        this.submissionCount = null
+      }
+    })
+    
+    this.currentYear = String(new Date().getFullYear())
+
+    this.projectService.getAwardCounts(user, this.currentYear).subscribe((data: any[]) => {
+      this.awardData = data;
+      this.cd.detectChanges();
+    })
+  }
+
+  getMonthName(id: number) {
+    return this.months.find( month => month.id == id ).name;
+  }
+
+  
 
   getRejectionCounts() {
     this.rejectionService.getCounts().subscribe((resp: any[]) => {

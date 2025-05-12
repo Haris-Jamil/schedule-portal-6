@@ -2,6 +2,7 @@ import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/cor
 import { ProjectService } from '../service/project.service';
 import { RejectionService } from '../service/rejection.service';
 import { TypeService } from '../service/type.service';
+import { LoginService } from '../service/login.service';
 declare var $;
 
 @Component({
@@ -43,8 +44,10 @@ export class EditModalComponent implements OnInit, OnChanges {
     'SR': false,
     'JN': false
   };
+
+  isOperator: boolean = false;
   
-  constructor(private projectService: ProjectService, private typeService: TypeService, private rejectionService: RejectionService) { }
+  constructor(private projectService: ProjectService, private typeService: TypeService, private rejectionService: RejectionService, private loginService: LoginService) { }
 
   
   reInitForm(){
@@ -76,6 +79,7 @@ export class EditModalComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
+    this.isOperator = this.loginService.isVisitor();
     this.typeService.getAllTypes().subscribe( (resp: any) => {
       this.types = resp;
     })
