@@ -200,7 +200,7 @@ export class MenuComponent implements OnInit, OnChanges {
         .fetchProjects(this.date, this.month, this.year)
         .subscribe(
           (data: any[]) => {
-            data = this.projectService.sortProjectsByTime(data);
+            //data = this.projectService.sortProjectsByTime(data);
             this.isDataLoading = false;
             this.originalData = data;
             this.fetchTotalProjects();
